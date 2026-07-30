@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:distancle/widgets/results_button.dart';
+import 'package:distancle/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distancle/config/constants.dart';
@@ -13,8 +15,8 @@ import 'package:distancle/widgets/title_box.dart';
 import 'package:distancle/widgets/win_popup.dart';
 
 class GameState {
-  bool playing = true;
   late String answer;
+  bool playing = true;
   String currentGuess = "";
   List<String> pastGuesses = [];
   String? infoBoxText;
@@ -26,6 +28,15 @@ class GameState {
     pastGuesses = pastGuesses;
     infoBoxText = infoBoxText;
     invalidGuessCount = invalidGuessCount;
+  }
+
+  void reset() {
+    answer = _generateAnswer();
+    playing = true;
+    currentGuess = "";
+    pastGuesses.clear();
+    infoBoxText = null;
+    invalidGuessCount = 1;
   }
 
   String _generateAnswer() {
@@ -124,7 +135,10 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return LossPopup(answer: widget.gameState.answer);
+        return LossPopup(
+          answer: widget.gameState.answer,
+          guesses: widget.gameState.pastGuesses,
+        );
       },
     );
   }
@@ -177,9 +191,23 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 5),
                     _buildLetterBoxRow(i),
                   ],
-                  InfoBox(
-                    info: widget.gameState.infoBoxText,
-                    shakeId: widget.gameState.invalidGuessCount,
+                  widget.gameState.playing
+                      ? InfoBox(
+                          info: widget.gameState.infoBoxText,
+                          shakeId: widget.gameState.invalidGuessCount,
+                        )
+                      : ResultsButton(
+                          answer: widget.gameState.answer,
+                          guesses: widget.gameState.pastGuesses,
+                        ),
+
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        widget.gameState.reset();
+                      });
+                    },
+                    icon: Icon(Icons.replay_outlined),
                   ),
                 ],
               ),

@@ -1,3 +1,4 @@
+import 'package:distancle/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 
 class WinPopup extends StatelessWidget {
@@ -9,13 +10,19 @@ class WinPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("You Win!"),
-      content: Text(
-        "Congratulations! You won in ${guesses.length} guess${guesses.length == 1 ? "" : "es"}.",
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Congratulations! You won in ${guesses.length} guess${guesses.length == 1 ? "" : "es"}.",
+          ),
+        ],
       ),
       actions: [
+        ShareButton(answer: answer, guesses: guesses),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Yay!"),
+          child: const Icon(Icons.close),
         ),
       ],
     );
