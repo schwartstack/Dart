@@ -31,12 +31,9 @@ class _InfoBoxState extends State<InfoBox> with SingleTickerProviderStateMixin {
 
   void _startShake() {
     _controller
+      ..stop()
       ..reset()
-      ..repeat(reverse: true);
-
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) _controller.stop();
-    });
+      ..forward();
   }
 
   @override
