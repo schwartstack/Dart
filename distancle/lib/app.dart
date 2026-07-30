@@ -17,13 +17,15 @@ class GameState {
   late String answer;
   String currentGuess = "";
   List<String> pastGuesses = [];
-  String? infoBarText;
+  String? infoBoxText;
+  int invalidGuessCount = 1;
 
   GameState() {
     answer = _generateAnswer();
     currentGuess = currentGuess;
     pastGuesses = pastGuesses;
-    infoBarText = infoBarText;
+    infoBoxText = infoBoxText;
+    invalidGuessCount = invalidGuessCount;
   }
 
   String _generateAnswer() {
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       widget.gameState.answer,
     ).toStringAsFixed(2);
     setState(() {
-      widget.gameState.infoBarText =
+      widget.gameState.infoBoxText =
           "Total distance of last guess: $totalDistance key widths";
       widget.gameState.pastGuesses.add(widget.gameState.currentGuess);
       widget.gameState.currentGuess = "";
@@ -99,7 +101,8 @@ class _HomePageState extends State<HomePage> {
 
   void _handleInvalidGuess() {
     setState(() {
-      widget.gameState.infoBarText = "Word not found in dictionary";
+      widget.gameState.invalidGuessCount++;
+      widget.gameState.infoBoxText = "Word not found in dictionary";
     });
   }
 
@@ -174,7 +177,10 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 5),
                     _buildLetterBoxRow(i),
                   ],
-                  InfoBox(info: widget.gameState.infoBarText),
+                  InfoBox(
+                    info: widget.gameState.infoBoxText,
+                    shakeId: widget.gameState.invalidGuessCount,
+                  ),
                 ],
               ),
             ),
