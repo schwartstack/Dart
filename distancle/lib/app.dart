@@ -9,6 +9,7 @@ import 'package:distancle/widgets/keyboard.dart';
 import 'package:distancle/widgets/title_box.dart';
 
 class GameState {
+  bool playing = true;
   late String answer;
   String currentGuess = "";
   List<String> pastGuesses = [];
@@ -52,25 +53,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void handleKeyPress(String letter) {
-    if (widget.gameState.currentGuess.length < 5) {
+  void _handleKeyPress(String letter) {
+    if (widget.gameState.playing && widget.gameState.currentGuess.length < 5) {
       setState(() {
         widget.gameState.currentGuess += letter;
       });
     }
   }
 
-  void handleEnterPressed() {
-    if (widget.gameState.currentGuess.length == 5) {
+  void _handleEnterPressed() {
+    if (widget.gameState.playing && widget.gameState.currentGuess.length == 5) {
       setState(() {
         widget.gameState.pastGuesses.add(widget.gameState.currentGuess);
         widget.gameState.currentGuess = "";
       });
+      if (widget.gameState.pastGuesses.last == widget.gameState.answer) {
+        _handleWin();
+      } else {
+        if (widget.gameState.pastGuesses.length == numRows) {
+          _handleLoss();
+        }
+      }
     }
   }
 
-  void handleDeletePressed() {
-    if (widget.gameState.currentGuess.isNotEmpty) {
+  void _handleDeletePressed() {
+    if (widget.gameState.playing && widget.gameState.currentGuess.isNotEmpty) {
       setState(() {
         widget.gameState.currentGuess = widget.gameState.currentGuess.substring(
           0,
@@ -78,6 +86,46 @@ class _HomePageState extends State<HomePage> {
         );
       });
     }
+  }
+
+  void _handleWin() {
+    widget.gameState.playing = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("You Win!"),
+          content: Text(
+            "Congratulations! You won in ${widget.gameState.pastGuesses.length} guess${widget.gameState.pastGuesses.length == 1 ? "" : "es"}.",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Yay!"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _handleLoss() {
+    widget.gameState.playing = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Game Over"),
+          content: Text("The secret word was ${widget.gameState.answer}."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Bummer"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildLetterBoxRow(int rowNumber) {
@@ -123,9 +171,9 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               flex: 1,
               child: Keyboard(
-                onKeyPressed: handleKeyPress,
-                onEnterPressed: handleEnterPressed,
-                onDeletePressed: handleDeletePressed,
+                onKeyPressed: _handleKeyPress,
+                onEnterPressed: _handleEnterPressed,
+                onDeletePressed: _handleDeletePressed,
               ),
             ),
           ],

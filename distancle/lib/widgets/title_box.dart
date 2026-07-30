@@ -9,8 +9,10 @@ class TitleBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 100,
-      child: const Center(child: Text(title, style: TextStyle(fontSize: 75))),
+      height: titleBoxHeight,
+      child: const Center(
+        child: Text(title, style: TextStyle(fontSize: titleBoxHeight * 3 / 4)),
+      ),
     );
   }
 }
