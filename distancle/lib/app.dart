@@ -4,20 +4,26 @@ import 'package:flutter/material.dart';
 
 import 'package:distancle/config/constants.dart';
 import 'package:distancle/config/data.dart';
+import 'package:distancle/helpers.dart';
 import 'package:distancle/widgets/game_board.dart';
+import 'package:distancle/widgets/info_box.dart';
 import 'package:distancle/widgets/keyboard.dart';
+import 'package:distancle/widgets/loss_popup.dart';
 import 'package:distancle/widgets/title_box.dart';
+import 'package:distancle/widgets/win_popup.dart';
 
 class GameState {
   bool playing = true;
   late String answer;
   String currentGuess = "";
   List<String> pastGuesses = [];
+  String? infoBarText;
 
   GameState() {
     answer = _generateAnswer();
     currentGuess = currentGuess;
     pastGuesses = pastGuesses;
+    infoBarText = infoBarText;
   }
 
   String _generateAnswer() {
@@ -63,18 +69,61 @@ class _HomePageState extends State<HomePage> {
 
   void _handleEnterPressed() {
     if (widget.gameState.playing && widget.gameState.currentGuess.length == 5) {
-      setState(() {
-        widget.gameState.pastGuesses.add(widget.gameState.currentGuess);
-        widget.gameState.currentGuess = "";
-      });
-      if (widget.gameState.pastGuesses.last == widget.gameState.answer) {
-        _handleWin();
+      if (allowableGuesses.contains(widget.gameState.currentGuess)) {
+        _handleValidGuess();
       } else {
-        if (widget.gameState.pastGuesses.length == numRows) {
-          _handleLoss();
-        }
+        _handleInvalidGuess();
       }
     }
+  }
+
+  void _handleValidGuess() {
+    final String totalDistance = calculateDistance(
+      widget.gameState.currentGuess,
+      widget.gameState.answer,
+    ).toStringAsFixed(2);
+    setState(() {
+      widget.gameState.infoBarText =
+          "Total distance of last guess: $totalDistance key widths";
+      widget.gameState.pastGuesses.add(widget.gameState.currentGuess);
+      widget.gameState.currentGuess = "";
+    });
+    if (widget.gameState.pastGuesses.last == widget.gameState.answer) {
+      _handleWin();
+    } else {
+      if (widget.gameState.pastGuesses.length == numRows) {
+        _handleLoss();
+      }
+    }
+  }
+
+  void _handleInvalidGuess() {
+    setState(() {
+      widget.gameState.infoBarText = "Word not found in dictionary";
+    });
+  }
+
+  void _handleWin() {
+    widget.gameState.playing = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WinPopup(
+          answer: widget.gameState.answer,
+          guesses: widget.gameState.pastGuesses,
+        );
+      },
+    );
+  }
+
+  void _handleLoss() {
+    widget.gameState.playing = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return LossPopup(answer: widget.gameState.answer);
+      },
+    );
   }
 
   void _handleDeletePressed() {
@@ -86,46 +135,6 @@ class _HomePageState extends State<HomePage> {
         );
       });
     }
-  }
-
-  void _handleWin() {
-    widget.gameState.playing = false;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("You Win!"),
-          content: Text(
-            "Congratulations! You won in ${widget.gameState.pastGuesses.length} guess${widget.gameState.pastGuesses.length == 1 ? "" : "es"}.",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Yay!"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _handleLoss() {
-    widget.gameState.playing = false;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Game Over"),
-          content: Text("The secret word was ${widget.gameState.answer}."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Bummer"),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   Widget _buildLetterBoxRow(int rowNumber) {
@@ -165,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 5),
                     _buildLetterBoxRow(i),
                   ],
+                  InfoBox(info: widget.gameState.infoBarText),
                 ],
               ),
             ),

@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:distancle/helpers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distancle/config/constants.dart';
-import 'package:distancle/config/data.dart';
 
 class LetterBoxRow extends StatelessWidget {
   final bool isSubmitted;
@@ -19,15 +19,10 @@ class LetterBoxRow extends StatelessWidget {
 
   Widget _buildLetterBox(int index) {
     if (isSubmitted) {
-      final Point p1 = locationMap[guess[index]]!;
-      final Point p2 = locationMap[answer[index]]!;
-
-      final num dy = p1.y - p2.y;
-      final num dx = p2.x - p1.x;
       return LetterBox(
         letter: guess[index],
-        distance: p1.distanceTo(p2),
-        theta: p1 == p2 ? null : atan2(-dy, dx),
+        distance: calculateDistance(guess[index], answer[index]),
+        theta: calculateAngle(guess[index], answer[index]),
       );
     }
     if (guess.length > index) {
