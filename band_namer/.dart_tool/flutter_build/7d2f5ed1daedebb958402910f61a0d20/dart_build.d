@@ -1,0 +1,1 @@
+ /Users/schwartstack/Documents/Dart\ Programming/band_namer/.dart_tool/flutter_build/7d2f5ed1daedebb958402910f61a0d20/dart_build_result.json:  /Users/schwartstack/Desktop/flutter/bin/cache/dart-sdk/version /Users/schwartstack/Documents/Dart\ Programming/band_namer/.dart_tool/package_config.json /Users/schwartstack/Documents/Dart\ Programming/band_namer/pubspec.yaml
