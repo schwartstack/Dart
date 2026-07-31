@@ -1,14 +1,10 @@
 # TODO
 
-- settings button (see "user data")
 - user data
     - keep guesses during a single day
     - streaks
     - winrate
     - guesses per win
-    - settings
-        - night mode
-        - hard mode (no arrows)
 - same word for everyone on the same day
     - keep track of puzzle number and past words
 - info button

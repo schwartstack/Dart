@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
     final String totalDistance = calculateDistance(
       widget.gameState.currentGuess,
       widget.gameState.answer,
-    ).toStringAsFixed(2);
+    )!.toStringAsFixed(2);
     setState(() {
       widget.gameState.infoBoxText =
           "Total distance of last guess: $totalDistance key widths";
@@ -134,20 +134,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-
-  // void _handleDarkModeSwitched(bool value) {
-  //   setState(() {
-  //     widget.gameState.darkMode = value;
-  //   });
-  //   print("darkMode: ${widget.gameState.darkMode}");
-  // }
-
-  // void _handleHardModeSwitched(bool value) {
-  //   setState(() {
-  //     widget.gameState.hardMode = value;
-  //   });
-  //   print("hardMode: ${widget.gameState.hardMode}");
-  // }
 
   Widget _buildLetterBoxRow(int rowNumber) {
     if (widget.gameState.pastGuesses.length > rowNumber) {

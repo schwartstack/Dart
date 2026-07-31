@@ -1,9 +1,10 @@
 import 'dart:math';
 
-import 'package:distle/helpers.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distle/config/constants.dart';
+import 'package:distle/config/user_data.dart';
+import 'package:distle/helpers.dart';
 
 class LetterBoxRow extends StatelessWidget {
   final bool isSubmitted;
@@ -18,17 +19,11 @@ class LetterBoxRow extends StatelessWidget {
   });
 
   Widget _buildLetterBox(int index) {
-    if (isSubmitted) {
-      return LetterBox(
-        letter: guess[index],
-        distance: calculateDistance(guess[index], answer[index]),
-        theta: calculateAngle(guess[index], answer[index]),
-      );
-    }
-    if (guess.length > index) {
-      return LetterBox(letter: guess[index]);
-    }
-    return LetterBox(letter: "");
+    return LetterBox(
+      guessLetter: guess.length > index ? guess[index] : null,
+      targetLetter: answer[index],
+      isSubmitted: isSubmitted,
+    );
   }
 
   @override
@@ -46,19 +41,20 @@ class LetterBoxRow extends StatelessWidget {
 }
 
 class LetterBox extends StatelessWidget {
-  final String letter;
-  final double? distance;
-  final double? theta;
+  final String? guessLetter;
+  final String targetLetter;
+  final bool isSubmitted;
 
-  const LetterBox({super.key, required this.letter, this.distance, this.theta});
+  const LetterBox({
+    super.key,
+    required this.guessLetter,
+    required this.targetLetter,
+    required this.isSubmitted,
+  });
 
   @override
   Widget build(BuildContext context) {
-    double? distanceProp = distance == null ? null : distance! / maxDistance;
-    Color backgroundColor = distanceProp == null
-        ? Colors.white
-        : Color.lerp(Colors.green, Colors.red, distanceProp)!;
-
+    double? theta = calculateAngle(guessLetter, targetLetter);
     return SizedBox.square(
       dimension: boxSize,
       child: Stack(
@@ -66,11 +62,18 @@ class LetterBox extends StatelessWidget {
         children: [
           DecoratedBox(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 4),
-              color: backgroundColor,
+              border: Border.all(
+                color: UserData.darkMode ? Colors.white : Colors.black,
+                width: 4,
+              ),
+              color: getBackgroundColor(
+                guessLetter,
+                targetLetter,
+                isSubmitted: isSubmitted,
+              ),
             ),
           ),
-          if (theta != null)
+          if (isSubmitted && theta != null && !UserData.hardMode)
             CustomPaint(
               size: const Size.square(boxSize),
               painter: ArrowPainter(theta!),
@@ -79,8 +82,11 @@ class LetterBox extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Text(
-                letter,
-                style: const TextStyle(fontSize: boxSize / 2),
+                guessLetter ?? "",
+                style: const TextStyle(
+                  fontSize: boxSize / 2,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

@@ -1,10 +1,13 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:distle/config/constants.dart';
-import 'package:distle/helpers.dart';
 import 'package:flutter/material.dart';
+
 import 'package:share_plus/share_plus.dart';
+
+import 'package:distle/config/constants.dart';
+import 'package:distle/config/user_data.dart';
+import 'package:distle/helpers.dart';
 
 class ShareButton extends StatelessWidget {
   final String answer;
@@ -21,7 +24,8 @@ class ShareButton extends StatelessWidget {
 
     await SharePlus.instance.share(
       ShareParams(
-        text: "distle #$puzzleNumber ${won ? guesses.length : "X"}/$numRows",
+        text:
+            "distle #$puzzleNumber ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],
@@ -45,7 +49,7 @@ class ShareImageGenerator {
     required List<String> guesses,
   }) async {
     const double boxSize = 30.0;
-    const double borderSize = 5.0;
+    const double borderSize = 10.0;
     const double canvasWidth = (boxSize * 5) + (2 * borderSize);
     final double canvasHeight = (boxSize * guesses.length) + (2 * borderSize);
 
@@ -54,7 +58,7 @@ class ShareImageGenerator {
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, canvasWidth, canvasHeight),
-      Paint()..color = Colors.black,
+      Paint()..color = UserData.darkMode ? Colors.black : Colors.white,
     );
 
     double pointerX = borderSize;
@@ -65,20 +69,15 @@ class ShareImageGenerator {
       String guess = guesses[i];
       for (int j = 0; j < guess.length; j++) {
         pointerX = borderSize + (boxSize * j);
-        double distance = calculateDistance(guess[j], answer[j]);
-        double distanceProp = distance / maxDistance;
-        Color boxColor = Color.lerp(Colors.green, Colors.red, distanceProp)!;
         canvas.drawRect(
           Rect.fromLTWH(pointerX, pointerY, boxSize, boxSize),
-          Paint()..color = boxColor,
+          Paint()..color = getBackgroundColor(guess[j], answer[j]),
         );
         canvas.drawRect(
           Rect.fromLTWH(pointerX, pointerY, boxSize, boxSize),
           Paint()
-            ..color = Colors
-                .black // Choose the border color
-            ..style = PaintingStyle
-                .stroke // Set style to stroke for an empty rectangle
+            ..color = Colors.black
+            ..style = PaintingStyle.stroke
             ..strokeWidth = 1,
         );
       }

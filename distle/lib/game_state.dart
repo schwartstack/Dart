@@ -3,26 +3,31 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:distle/config/data.dart';
+import 'package:distle/config/user_data.dart';
 
 class GameState extends ChangeNotifier {
   late String answer;
+  late bool darkMode = UserData.darkMode;
+  late bool hardMode = UserData.hardMode;
   bool playing = true;
   String currentGuess = "";
   List<String> pastGuesses = [];
   String? infoBoxText;
   int invalidGuessCount = 1;
-  bool darkMode = true;
-  bool hardMode = false;
 
   void setDarkMode(bool value) {
     if (darkMode == value) return;
-    darkMode = value;
+    UserData.darkMode = value;
+    darkMode = UserData.darkMode;
+    UserData.save();
     notifyListeners();
   }
 
   void setHardMode(bool value) {
     if (hardMode == value) return;
-    hardMode = value;
+    UserData.hardMode = value;
+    hardMode = UserData.hardMode;
+    UserData.save();
     notifyListeners();
   }
 
