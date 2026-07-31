@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:distancle/config/constants.dart';
+import 'package:distle/config/constants.dart';
 
 class Keyboard extends StatelessWidget {
   final void Function(String) onKeyPressed;
@@ -138,11 +138,12 @@ class LetterButton extends StatelessWidget {
       onPressed: () => onKeyPressed(letter),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
+        minimumSize: const Size(0, 0),
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(),
         ),
-        padding: const EdgeInsets.all(0),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       child: Text(
@@ -164,11 +165,12 @@ class EnterButton extends StatelessWidget {
       onPressed: () => onEnterPressed(),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
+        minimumSize: const Size(0, 0),
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(),
         ),
-        padding: const EdgeInsets.all(0),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       child: Icon(Icons.keyboard_return, size: keySize * 3 / 5),
@@ -187,11 +189,12 @@ class DeleteButton extends StatelessWidget {
       onPressed: () => onDeletePressed(),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
+        minimumSize: const Size(0, 0),
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(),
         ),
-        padding: const EdgeInsets.all(0),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       child: Icon(Icons.backspace_outlined, size: keySize * 3 / 5),

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:distancle/config/data.dart';
+import 'package:distle/config/data.dart';
 
 double calculateDistance(String string1, String string2) {
   double totalDistance = 0.0;

@@ -1,18 +1,17 @@
 import 'dart:math';
 
-import 'package:distancle/widgets/results_button.dart';
-import 'package:distancle/widgets/share_button.dart';
 import 'package:flutter/material.dart';
 
-import 'package:distancle/config/constants.dart';
-import 'package:distancle/config/data.dart';
-import 'package:distancle/helpers.dart';
-import 'package:distancle/widgets/game_board.dart';
-import 'package:distancle/widgets/info_box.dart';
-import 'package:distancle/widgets/keyboard.dart';
-import 'package:distancle/widgets/loss_popup.dart';
-import 'package:distancle/widgets/title_box.dart';
-import 'package:distancle/widgets/win_popup.dart';
+import 'package:distle/config/constants.dart';
+import 'package:distle/config/data.dart';
+import 'package:distle/helpers.dart';
+import 'package:distle/widgets/boxes/game_board.dart';
+import 'package:distle/widgets/boxes/info_box.dart';
+import 'package:distle/widgets/boxes/keyboard.dart';
+import 'package:distle/widgets/boxes/title_box.dart';
+import 'package:distle/widgets/buttons/results_button.dart';
+import 'package:distle/widgets/popups/loss_popup.dart';
+import 'package:distle/widgets/popups/win_popup.dart';
 
 class GameState {
   late String answer;
@@ -200,15 +199,6 @@ class _HomePageState extends State<HomePage> {
                           answer: widget.gameState.answer,
                           guesses: widget.gameState.pastGuesses,
                         ),
-
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.gameState.reset();
-                      });
-                    },
-                    icon: Icon(Icons.replay_outlined),
-                  ),
                 ],
               ),
             ),

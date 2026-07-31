@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:distancle/helpers.dart';
+import 'package:distle/helpers.dart';
 import 'package:flutter/material.dart';
 
-import 'package:distancle/config/constants.dart';
+import 'package:distle/config/constants.dart';
 
 class LetterBoxRow extends StatelessWidget {
   final bool isSubmitted;

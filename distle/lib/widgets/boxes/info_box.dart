@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:distancle/config/constants.dart';
+import 'package:distle/config/constants.dart';
 
 class InfoBox extends StatefulWidget {
   final String? info;
@@ -67,7 +67,7 @@ class _InfoBoxState extends State<InfoBox> with SingleTickerProviderStateMixin {
           },
           child: Text(
             widget.info ?? "",
-            style: const TextStyle(fontSize: infoBoxHeight / 5),
+            style: const TextStyle(fontSize: infoBoxHeight / 4),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distancle/app.dart';
+import 'package:distle/app.dart';
 
 void main() {
   runApp(MyApp(gameState: GameState()));

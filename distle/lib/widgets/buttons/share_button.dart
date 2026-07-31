@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:distancle/config/constants.dart';
-import 'package:distancle/helpers.dart';
+import 'package:distle/config/constants.dart';
+import 'package:distle/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -21,7 +21,7 @@ class ShareButton extends StatelessWidget {
 
     await SharePlus.instance.share(
       ShareParams(
-        text: "Distancle #$puzzleNumber ${won ? guesses.length : "X"}/$numRows",
+        text: "distle #$puzzleNumber ${won ? guesses.length : "X"}/$numRows",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],

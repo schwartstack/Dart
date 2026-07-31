@@ -1,4 +1,4 @@
-import 'package:distancle/widgets/share_button.dart';
+import 'package:distle/widgets/buttons/share_button.dart';
 import 'package:flutter/material.dart';
 
 class LossPopup extends StatelessWidget {
