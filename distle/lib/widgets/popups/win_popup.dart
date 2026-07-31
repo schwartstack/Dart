@@ -2,9 +2,15 @@ import 'package:distle/widgets/buttons/share_button.dart';
 import 'package:flutter/material.dart';
 
 class WinPopup extends StatelessWidget {
+  final int puzzleNum;
   final String answer;
   final List<String> guesses;
-  const WinPopup({super.key, required this.answer, required this.guesses});
+  const WinPopup({
+    super.key,
+    required this.puzzleNum,
+    required this.answer,
+    required this.guesses,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class WinPopup extends StatelessWidget {
         ],
       ),
       actions: [
-        ShareButton(answer: answer, guesses: guesses),
+        ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Icon(Icons.close),

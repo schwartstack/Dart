@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return WinPopup(
+          puzzleNum: widget.gameState.puzzleNum,
           answer: widget.gameState.answer,
           guesses: widget.gameState.pastGuesses,
         );
@@ -117,6 +118,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return LossPopup(
+          puzzleNum: widget.gameState.puzzleNum,
           answer: widget.gameState.answer,
           guesses: widget.gameState.pastGuesses,
         );
@@ -197,6 +199,7 @@ class _HomePageState extends State<HomePage> {
                           shakeId: widget.gameState.invalidGuessCount,
                         )
                       : ResultsButton(
+                          puzzleNum: widget.gameState.puzzleNum,
                           answer: widget.gameState.answer,
                           guesses: widget.gameState.pastGuesses,
                         ),

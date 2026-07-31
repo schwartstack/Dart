@@ -10,9 +10,15 @@ import 'package:distle/config/user_data.dart';
 import 'package:distle/helpers.dart';
 
 class ShareButton extends StatelessWidget {
+  final int puzzleNum;
   final String answer;
   final List<String> guesses;
-  const ShareButton({super.key, required this.answer, required this.guesses});
+  const ShareButton({
+    super.key,
+    required this.puzzleNum,
+    required this.answer,
+    required this.guesses,
+  });
 
   Future<void> _share() async {
     final bool won = guesses.last == answer;
@@ -25,7 +31,7 @@ class ShareButton extends StatelessWidget {
     await SharePlus.instance.share(
       ShareParams(
         text:
-            "distle #$puzzleNumber ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
+            "distle #$puzzleNum ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],

@@ -1,11 +1,14 @@
-import 'dart:math';
-
+import 'package:distle/config/constants.dart';
 import 'package:flutter/material.dart';
+
+import 'package:timezone/data/latest.dart';
+import 'package:timezone/timezone.dart';
 
 import 'package:distle/config/data.dart';
 import 'package:distle/config/user_data.dart';
 
 class GameState extends ChangeNotifier {
+  late int puzzleNum;
   late String answer;
   late bool darkMode = UserData.darkMode;
   late bool hardMode = UserData.hardMode;
@@ -32,7 +35,8 @@ class GameState extends ChangeNotifier {
   }
 
   GameState() {
-    answer = _generateAnswer();
+    puzzleNum = _generatePuzzleNum();
+    answer = _generateAnswer(puzzleNum);
     currentGuess = currentGuess;
     pastGuesses = pastGuesses;
     infoBoxText = infoBoxText;
@@ -41,9 +45,15 @@ class GameState extends ChangeNotifier {
     hardMode = hardMode;
   }
 
-  String _generateAnswer() {
-    final random = Random();
-    int randomIndex = random.nextInt(possibleAnswers.length);
-    return possibleAnswers[randomIndex];
+  int _generatePuzzleNum() {
+    initializeTimeZones();
+    final PacificTimeLocation = getLocation("America/Los_Angeles");
+    final TZDateTime dateInPacificTime = TZDateTime.now(PacificTimeLocation);
+    final duration = dateInPacificTime.difference(startDate);
+    return duration.inDays;
+  }
+
+  String _generateAnswer(int puzzleNum) {
+    return possibleAnswers[puzzleNum];
   }
 }

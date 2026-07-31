@@ -1,12 +1,12 @@
 # TODO
 
+- refactor HomePage as stateless widget
+    - move all set state functions to GameState (use notifyListeners)
 - user data
     - keep guesses during a single day
     - streaks
     - winrate
     - guesses per win
-- same word for everyone on the same day
-    - keep track of puzzle number and past words
 - info button
     - how to play, contact, etc
 - stats button
