@@ -1,63 +1,45 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'package:distle/config/constants.dart';
 import 'package:distle/config/data.dart';
+import 'package:distle/game_state.dart';
 import 'package:distle/helpers.dart';
 import 'package:distle/widgets/boxes/game_board.dart';
 import 'package:distle/widgets/boxes/info_box.dart';
 import 'package:distle/widgets/boxes/keyboard.dart';
 import 'package:distle/widgets/boxes/title_box.dart';
+import 'package:distle/widgets/buttons/help_button.dart';
 import 'package:distle/widgets/buttons/results_button.dart';
+import 'package:distle/widgets/buttons/settings_button.dart';
+import 'package:distle/widgets/buttons/stats_button.dart';
 import 'package:distle/widgets/popups/loss_popup.dart';
 import 'package:distle/widgets/popups/win_popup.dart';
 
-class GameState {
-  late String answer;
-  bool playing = true;
-  String currentGuess = "";
-  List<String> pastGuesses = [];
-  String? infoBoxText;
-  int invalidGuessCount = 1;
-
-  GameState() {
-    answer = _generateAnswer();
-    currentGuess = currentGuess;
-    pastGuesses = pastGuesses;
-    infoBoxText = infoBoxText;
-    invalidGuessCount = invalidGuessCount;
-  }
-
-  void reset() {
-    answer = _generateAnswer();
-    playing = true;
-    currentGuess = "";
-    pastGuesses.clear();
-    infoBoxText = null;
-    invalidGuessCount = 1;
-  }
-
-  String _generateAnswer() {
-    final random = Random();
-    int randomIndex = random.nextInt(possibleAnswers.length);
-    return possibleAnswers[randomIndex];
-  }
-}
-
 class MyApp extends StatelessWidget {
   final GameState gameState;
+
   const MyApp({super.key, required this.gameState});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: title,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-      ),
-      debugShowCheckedModeBanner: false,
-      home: HomePage(gameState: gameState),
+    return AnimatedBuilder(
+      animation: gameState,
+      builder: (context, child) {
+        return MaterialApp(
+          title: title,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+          ),
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.teal,
+              brightness: Brightness.dark,
+            ),
+          ),
+          themeMode: gameState.darkMode ? ThemeMode.dark : ThemeMode.light,
+          home: HomePage(gameState: gameState),
+        );
+      },
     );
   }
 }
@@ -153,6 +135,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // void _handleDarkModeSwitched(bool value) {
+  //   setState(() {
+  //     widget.gameState.darkMode = value;
+  //   });
+  //   print("darkMode: ${widget.gameState.darkMode}");
+  // }
+
+  // void _handleHardModeSwitched(bool value) {
+  //   setState(() {
+  //     widget.gameState.hardMode = value;
+  //   });
+  //   print("hardMode: ${widget.gameState.hardMode}");
+  // }
+
   Widget _buildLetterBoxRow(int rowNumber) {
     if (widget.gameState.pastGuesses.length > rowNumber) {
       return LetterBoxRow(
@@ -185,7 +181,26 @@ class _HomePageState extends State<HomePage> {
               flex: 4,
               child: Column(
                 children: [
-                  TitleBox(),
+                  SizedBox(
+                    width: double.infinity,
+                    height: titleBoxHeight,
+                    child: Stack(
+                      children: [
+                        TitleBox(),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              HelpButton(),
+                              StatsButton(),
+                              SettingsButton(gameState: widget.gameState),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   for (int i = 0; i < numRows; i++) ...[
                     const SizedBox(height: 5),
                     _buildLetterBoxRow(i),

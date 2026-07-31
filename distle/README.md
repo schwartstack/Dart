@@ -1,7 +1,6 @@
 # TODO
 
-- share button
-    - image of guess grid? or graph of guesses?
+- settings button (see "user data")
 - user data
     - keep guesses during a single day
     - streaks
@@ -18,7 +17,6 @@
     - graphs
         - guesses per win
         - distance per guess
-- settings button (see "user data")
 - guess animation
-- word not in dictionary animation
 - win animation
+- resize constants (titleBoxHeight, infoBoxHeight, boxSize, keySize) depending on user platform (mobile vs desktop) or maybe based on window size?
