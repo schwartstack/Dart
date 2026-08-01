@@ -7,6 +7,7 @@ import 'package:distle/widgets/boxes/info_box.dart';
 import 'package:distle/widgets/boxes/keyboard.dart';
 import 'package:distle/widgets/boxes/title_box.dart';
 import 'package:distle/widgets/buttons/help_button.dart';
+import 'package:distle/widgets/buttons/info_button.dart';
 import 'package:distle/widgets/buttons/results_button.dart';
 import 'package:distle/widgets/buttons/settings_button.dart';
 import 'package:distle/widgets/buttons/stats_button.dart';
@@ -90,6 +91,7 @@ class HomePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               HelpButton(),
+                              InfoButton(),
                               StatsButton(gameState: gameState),
                               SettingsButton(gameState: gameState),
                             ],

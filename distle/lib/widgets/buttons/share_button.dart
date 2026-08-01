@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -31,11 +30,12 @@ class ShareButton extends StatelessWidget {
 
     await SharePlus.instance.share(
       ShareParams(
-        text:
+        title:
             "distle #${puzzleNum + 1} ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],
+        text: "http://distle.xyz",
       ),
     );
   }

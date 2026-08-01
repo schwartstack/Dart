@@ -10,6 +10,8 @@ class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      constraints: const BoxConstraints(),
       icon: Icon(Icons.settings),
       onPressed: () {
         showDialog(

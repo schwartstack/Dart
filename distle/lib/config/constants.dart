@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:distle/config/data.dart';
 
-final DateTime startDate = DateTime(2026, 8, 1);
+final String version = "1.0.1";
 
+final DateTime startDate = DateTime(2026, 8, 1);
 const String title = "Distle";
 const double titleBoxHeight = 50.0;
 const double infoBoxHeight = 50.0;

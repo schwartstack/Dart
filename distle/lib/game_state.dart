@@ -64,7 +64,7 @@ class GameState extends ChangeNotifier {
   }
 
   String _generateAnswer(int puzzleNum) {
-    return possibleAnswers[puzzleNum % possibleAnswers.length];
+    return "APPLE"; //possibleAnswers[puzzleNum % possibleAnswers.length];
   }
 
   void setDarkMode(bool value) {
