@@ -1,8 +1,28 @@
-# CHange Log
+# Change Log
+
+## Version 1.0.6 (2026-08-01)
+
+- put icon buttons on both sides of title
+
+## Version 1.0.5 (2026-08-01)
+
+- fix icon button spaxing on mobile
+
+## Version 1.0.4 (2026-08-01)
+
+- make keys slightly larger
+
+## Version 1.0.3 (2026-08-01)
+
+- fix kayboard spacing on mobile
+
+## Version 1.0.2 (2026-08-01)
+
+- fix _generateAnswer bug
 
 ## Version 1.0.1 (2026-08-01)
 
-- Add web link to share button output
+- add web link to share button output
 
 ## Version 1.0.0 (2026-08-01)
 

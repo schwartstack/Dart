@@ -26,6 +26,11 @@ class ProjectsWidget extends StatelessWidget {
             HyperLink(
               linkStyle: linkStyle,
               text:
+                  "• [Distle](https://distle.xyz): A Wordle-inspired daily word puzzle game.",
+            ),
+            HyperLink(
+              linkStyle: linkStyle,
+              text:
                   "• [Band Namer](https://schwartstack.github.io/band_namer): A random band name generator written in Dart/Flutter.",
             ),
           ],

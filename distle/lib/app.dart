@@ -84,14 +84,19 @@ class HomePage extends StatelessWidget {
                     height: titleBoxHeight,
                     child: Stack(
                       children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [HelpButton(), InfoButton()],
+                          ),
+                        ),
                         TitleBox(),
                         Align(
                           alignment: Alignment.centerRight,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              HelpButton(),
-                              InfoButton(),
                               StatsButton(gameState: gameState),
                               SettingsButton(gameState: gameState),
                             ],
