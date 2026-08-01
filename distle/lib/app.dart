@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               HelpButton(),
-                              StatsButton(),
+                              StatsButton(gameState: gameState),
                               SettingsButton(gameState: gameState),
                             ],
                           ),

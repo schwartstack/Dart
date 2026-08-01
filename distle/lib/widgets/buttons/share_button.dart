@@ -31,7 +31,7 @@ class ShareButton extends StatelessWidget {
     await SharePlus.instance.share(
       ShareParams(
         text:
-            "distle #$puzzleNum ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
+            "distle #${puzzleNum + 1} ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],

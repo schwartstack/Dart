@@ -14,22 +14,40 @@ class GameState extends ChangeNotifier {
   late GameResult gameResult = UserData.gameResult;
   late bool darkMode = UserData.darkMode;
   late bool hardMode = UserData.hardMode;
+  late List<String> gameHistory = UserData.gameHistory;
+  late int currentStreak = UserData.currentStreak;
+  late int longestStreak = UserData.longestStreak;
   late int puzzleNum;
   late String answer;
   late List<String> todaysGuesses;
+  late int potentialNextStreak;
   String currentGuess = "";
-  String? infoBoxText;
   int invalidGuessCount = 1;
+  String? infoBoxText;
 
   GameState() {
     puzzleNum = _generatePuzzleNum();
     answer = _generateAnswer(puzzleNum);
-    if (UserData.latestPuzzleWorkedOn != puzzleNum) {
+
+    final lastPlayed = UserData.latestPuzzlePlayed;
+    final lastCompleted = UserData.latestCompletedPuzzle;
+
+    if (lastCompleted != null &&
+        lastCompleted + 1 == puzzleNum &&
+        lastPlayed != puzzleNum) {
+      potentialNextStreak = currentStreak + 1;
+    } else {
+      potentialNextStreak = 1;
+    }
+
+    if (lastPlayed != puzzleNum) {
+      UserData.latestPuzzlePlayed = puzzleNum;
       UserData.gameResult = GameResult.playing;
-      UserData.latestPuzzleWorkedOn = puzzleNum;
       UserData.todaysGuesses = [];
       UserData.save();
     }
+
+    gameResult = UserData.gameResult;
     todaysGuesses = UserData.todaysGuesses;
   }
 
@@ -38,30 +56,34 @@ class GameState extends ChangeNotifier {
     final PacificTimeLocation = getLocation("America/Los_Angeles");
     final TZDateTime dateInPacificTime = TZDateTime.now(PacificTimeLocation);
 
-    final DateTime testDate = DateTime(2026, 8, 2);
-    final duration = testDate.difference(startDate);
+    // final DateTime testDate = DateTime(2026, 8, 25);
+    // final duration = testDate.difference(startDate);
 
-    // final duration = dateInPacificTime.difference(startDate);
+    final duration = dateInPacificTime.difference(startDate);
     return duration.inDays;
   }
 
   String _generateAnswer(int puzzleNum) {
-    return possibleAnswers[puzzleNum];
+    return possibleAnswers[puzzleNum % possibleAnswers.length];
   }
 
   void setDarkMode(bool value) {
     if (darkMode == value) return;
+
     UserData.darkMode = value;
-    darkMode = UserData.darkMode;
     UserData.save();
+
+    darkMode = UserData.darkMode;
     notifyListeners();
   }
 
   void setHardMode(bool value) {
     if (hardMode == value) return;
+
     UserData.hardMode = value;
-    hardMode = UserData.hardMode;
     UserData.save();
+
+    hardMode = UserData.hardMode;
     notifyListeners();
   }
 
@@ -90,8 +112,14 @@ class GameState extends ChangeNotifier {
     infoBoxText = "Total distance of last guess: $totalDistance key widths";
     UserData.todaysGuesses.add(currentGuess);
     todaysGuesses = UserData.todaysGuesses;
-    currentGuess = "";
+    if (todaysGuesses.length == 1) {
+      UserData.currentStreak = 0;
+      UserData.gameHistory.add("X");
+      currentStreak = UserData.currentStreak;
+      gameHistory = UserData.gameHistory;
+    }
     UserData.save();
+    currentGuess = "";
     notifyListeners();
     if (todaysGuesses.last == answer) {
       handleWin();
@@ -110,15 +138,34 @@ class GameState extends ChangeNotifier {
 
   void handleWin() {
     UserData.gameResult = GameResult.won;
-    gameResult = UserData.gameResult;
+    UserData.latestCompletedPuzzle = puzzleNum;
+
+    UserData.currentStreak = potentialNextStreak;
+
+    if (UserData.currentStreak > UserData.longestStreak) {
+      UserData.longestStreak = UserData.currentStreak;
+    }
+
+    UserData.gameHistory.removeLast();
+    UserData.gameHistory.add("${todaysGuesses.length}");
+
     UserData.save();
+
+    gameResult = UserData.gameResult;
+    currentStreak = UserData.currentStreak;
+    longestStreak = UserData.longestStreak;
+    gameHistory = UserData.gameHistory;
+
     notifyListeners();
   }
 
   void handleLoss() {
     UserData.gameResult = GameResult.lost;
-    gameResult = UserData.gameResult;
+    UserData.latestCompletedPuzzle = puzzleNum;
+
     UserData.save();
+
+    gameResult = UserData.gameResult;
     notifyListeners();
   }
 
@@ -127,5 +174,37 @@ class GameState extends ChangeNotifier {
       currentGuess = currentGuess.substring(0, currentGuess.length - 1);
     }
     notifyListeners();
+  }
+
+  int getAttempts() {
+    if (gameResult == GameResult.playing) {
+      if (todaysGuesses.isEmpty) {
+        return gameHistory.length;
+      } else {
+        return gameHistory.length - 1;
+      }
+    } else {
+      return gameHistory.length;
+    }
+  }
+
+  int getWins() {
+    int wins = 0;
+    for (int i = 0; i < gameHistory.length; i++) {
+      if (gameHistory[i] != "X") {
+        wins++;
+      }
+    }
+    return wins;
+  }
+
+  String getWinPercentage() {
+    double attempts = getAttempts() as double;
+    if (attempts == 0) {
+      return "0%";
+    }
+    double wins = getWins() as double;
+    double winProportion = wins / attempts;
+    return "${(winProportion * 100).toStringAsFixed(2)}%";
   }
 }

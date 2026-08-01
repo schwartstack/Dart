@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:distle/game_state.dart';
 import 'package:distle/widgets/popups/settings_popup.dart';
-import 'package:flutter/material.dart';
 
 class SettingsButton extends StatelessWidget {
   final GameState gameState;

@@ -1,12 +1,12 @@
 # TODO
 
-- user data
-    - keep guesses during a single day
-    - streaks
-    - winrate
-    - guesses per win
 - info button
     - how to play, contact, etc
+- add circles around correct letters (on game board and on share image)
+LAUNCH
+- hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
+- user data
+    - guesses per win
 - stats button
     - graphs
         - guesses per win
