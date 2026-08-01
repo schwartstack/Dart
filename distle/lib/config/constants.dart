@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:distle/config/data.dart';
 
-final startDate = DateTime(2026, 7, 31);
+final DateTime startDate = DateTime(2026, 7, 31);
 
 const String title = "Distle";
 const double titleBoxHeight = 50.0;

@@ -1,22 +1,16 @@
+import 'package:distle/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:distle/config/constants.dart';
 
 class Keyboard extends StatelessWidget {
-  final void Function(String) onKeyPressed;
-  final void Function() onDeletePressed;
-  final void Function() onEnterPressed;
+  final GameState gameState;
 
-  const Keyboard({
-    super.key,
-    required this.onKeyPressed,
-    required this.onDeletePressed,
-    required this.onEnterPressed,
-  });
+  const Keyboard({super.key, required this.gameState});
 
   Widget _buildLetterKey(String letter) {
-    return LetterButton(letter: letter, onKeyPressed: onKeyPressed);
+    return LetterButton(letter: letter, onKeyPress: gameState.handleKeyPress);
   }
 
   Widget _buildRow1() {
@@ -70,8 +64,8 @@ class Keyboard extends StatelessWidget {
         _buildLetterKey("B"),
         _buildLetterKey("N"),
         _buildLetterKey("M"),
-        EnterButton(onEnterPressed: onEnterPressed),
-        DeleteButton(onDeletePressed: onDeletePressed),
+        EnterButton(onEnterPress: gameState.handleEnterPress),
+        DeleteButton(onDeletePress: gameState.handleDeletePress),
       ],
     );
   }
@@ -87,19 +81,19 @@ class Keyboard extends StatelessWidget {
         final char = event.character?.toUpperCase();
 
         if (char != null && RegExp(r'^[A-Z]$').hasMatch(char)) {
-          onKeyPressed(char);
+          gameState.handleKeyPress(char);
           return KeyEventResult.handled;
         }
 
         switch (event.logicalKey) {
           case LogicalKeyboardKey.enter:
           case LogicalKeyboardKey.numpadEnter:
-            onEnterPressed();
+            gameState.handleEnterPress();
             return KeyEventResult.handled;
 
           case LogicalKeyboardKey.backspace:
           case LogicalKeyboardKey.delete:
-            onDeletePressed();
+            gameState.handleDeletePress();
             return KeyEventResult.handled;
         }
 
@@ -124,18 +118,18 @@ class Keyboard extends StatelessWidget {
 
 class LetterButton extends StatelessWidget {
   final String letter;
-  final void Function(String) onKeyPressed;
+  final void Function(String) onKeyPress;
 
   const LetterButton({
     super.key,
     required this.letter,
-    required this.onKeyPressed,
+    required this.onKeyPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onKeyPressed(letter),
+      onPressed: () => onKeyPress(letter),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
         minimumSize: const Size(0, 0),
@@ -155,14 +149,14 @@ class LetterButton extends StatelessWidget {
 }
 
 class EnterButton extends StatelessWidget {
-  final void Function() onEnterPressed;
+  final void Function() onEnterPress;
 
-  const EnterButton({super.key, required this.onEnterPressed});
+  const EnterButton({super.key, required this.onEnterPress});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onEnterPressed(),
+      onPressed: () => onEnterPress(),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
         minimumSize: const Size(0, 0),
@@ -179,14 +173,14 @@ class EnterButton extends StatelessWidget {
 }
 
 class DeleteButton extends StatelessWidget {
-  final void Function() onDeletePressed;
+  final void Function() onDeletePress;
 
-  const DeleteButton({super.key, required this.onDeletePressed});
+  const DeleteButton({super.key, required this.onDeletePress});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onDeletePressed(),
+      onPressed: () => onDeletePress(),
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(keySize, keySize),
         minimumSize: const Size(0, 0),

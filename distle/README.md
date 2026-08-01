@@ -1,7 +1,5 @@
 # TODO
 
-- refactor HomePage as stateless widget
-    - move all set state functions to GameState (use notifyListeners)
 - user data
     - keep guesses during a single day
     - streaks
