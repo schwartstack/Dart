@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -82,10 +83,20 @@ class ShareImageGenerator {
         canvas.drawRect(
           Rect.fromLTWH(pointerX, pointerY, boxSize, boxSize),
           Paint()
-            ..color = Colors.black
+            ..color = UserData.darkMode ? Colors.white : Colors.black
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1,
         );
+        if (guess[j] == answer[j]) {
+          canvas.drawCircle(
+            ui.Offset(pointerX + boxSize / 2, pointerY + boxSize / 2),
+            0.7 * boxSize / 2,
+            Paint()
+              ..color = UserData.darkMode ? Colors.white : Colors.black
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1,
+          );
+        }
       }
     }
 

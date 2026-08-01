@@ -63,7 +63,7 @@ class LetterBox extends StatelessWidget {
           DecoratedBox(
             decoration: BoxDecoration(
               border: Border.all(
-                color: UserData.darkMode ? Colors.white : Colors.black,
+                color: UserData.darkMode ? Colors.white70 : Colors.black,
                 width: 4,
               ),
               color: getBackgroundColor(
@@ -73,10 +73,17 @@ class LetterBox extends StatelessWidget {
               ),
             ),
           ),
+
+          if (isSubmitted && theta == null)
+            CustomPaint(
+              size: const Size.square(boxSize),
+              painter: CirclePainter(UserData.darkMode),
+            ),
+
           if (isSubmitted && theta != null && !UserData.hardMode)
             CustomPaint(
               size: const Size.square(boxSize),
-              painter: ArrowPainter(theta!),
+              painter: ArrowPainter(theta, UserData.darkMode),
             ),
 
           Positioned.fill(
@@ -97,9 +104,10 @@ class LetterBox extends StatelessWidget {
 }
 
 class ArrowPainter extends CustomPainter {
+  final bool darkMode;
   final double theta;
 
-  ArrowPainter(this.theta);
+  ArrowPainter(this.theta, this.darkMode);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -121,7 +129,7 @@ class ArrowPainter extends CustomPainter {
     );
 
     final paint = Paint()
-      ..color = Colors.black
+      ..color = darkMode ? Colors.white70 : Colors.black
       ..strokeWidth = 2.5
       ..strokeCap = StrokeCap.round;
 
@@ -147,4 +155,28 @@ class ArrowPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant ArrowPainter oldDelegate) =>
       theta != oldDelegate.theta;
+}
+
+class CirclePainter extends CustomPainter {
+  final bool darkMode;
+
+  CirclePainter(this.darkMode);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+
+    const margin = 10.0;
+    final radius = size.width / 2 - margin;
+
+    final paint = Paint()
+      ..color = darkMode ? Colors.white70 : Colors.black
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.5;
+
+    canvas.drawCircle(center, radius, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CirclePainter oldDelegate) => false;
 }

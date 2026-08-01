@@ -1,9 +1,6 @@
 # TODO
 
-- info button
-    - how to play, contact, etc
-- add circles around correct letters (on game board and on share image)
-LAUNCH
+- add contact info to help window
 - hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
 - user data
     - guesses per win
