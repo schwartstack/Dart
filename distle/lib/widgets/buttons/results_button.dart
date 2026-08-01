@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:distle/widgets/popups/loss_popup.dart';
 import 'package:distle/widgets/popups/win_popup.dart';
-import 'package:flutter/material.dart';
 
 class ResultsButton extends StatelessWidget {
   final int puzzleNum;

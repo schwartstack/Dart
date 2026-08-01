@@ -14,3 +14,4 @@ LAUNCH
 - guess animation
 - win animation
 - resize constants (titleBoxHeight, infoBoxHeight, boxSize, keySize) depending on user platform (mobile vs desktop) or maybe based on window size?
+- replace `last == answer` with gamestate = win

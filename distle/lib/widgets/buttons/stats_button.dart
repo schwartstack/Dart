@@ -14,13 +14,8 @@ class StatsButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (context) {
-            return AnimatedBuilder(
-              animation: gameState,
-              builder: (context, child) {
-                return StatsPopup(gameState: gameState);
-              },
-            );
+          builder: (BuildContext context) {
+            return StatsPopup(gameState: gameState);
           },
         );
       },
