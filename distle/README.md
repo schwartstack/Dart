@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.0.7 (2026-08-02)
+
+- Fix share button
+
 ## Version 1.0.6 (2026-08-01)
 
 - put icon buttons on both sides of title

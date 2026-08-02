@@ -31,11 +31,10 @@ class ShareButton extends StatelessWidget {
     await SharePlus.instance.share(
       ShareParams(
         title:
-            "distle #${puzzleNum + 1} ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}",
+            "distle #${puzzleNum + 1} ${won ? guesses.length : "X"}/$numRows${UserData.hardMode ? "*" : ""}\n\nhttp://distle.xyz",
         files: [
           XFile.fromData(bytes, mimeType: "image/png", name: "share.png"),
         ],
-        text: "http://distle.xyz",
       ),
     );
   }
@@ -55,8 +54,9 @@ class ShareImageGenerator {
     required String answer,
     required List<String> guesses,
   }) async {
-    const double boxSize = 30.0;
-    const double borderSize = 10.0;
+    const double scale = 1.8;
+    const double boxSize = 60.0;
+    const double borderSize = 20.0;
     const double canvasWidth = (boxSize * 5) + (2 * borderSize);
     final double canvasHeight = (boxSize * guesses.length) + (2 * borderSize);
 
@@ -103,8 +103,8 @@ class ShareImageGenerator {
     final picture = recorder.endRecording();
 
     final image = await picture.toImage(
-      (canvasWidth) as int,
-      (canvasHeight) as int,
+      (canvasWidth * scale).round(),
+      (canvasHeight * scale).round(),
     );
 
     final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
