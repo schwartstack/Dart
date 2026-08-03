@@ -32,6 +32,7 @@
 
 # TODO
 
+- add words to info box when you win (excellent, nice, etc)
 - hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
 - user data
     - guesses per win
