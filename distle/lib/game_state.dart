@@ -137,6 +137,21 @@ class GameState extends ChangeNotifier {
   }
 
   void handleWin() {
+    switch (todaysGuesses.length) {
+      case 1:
+        infoBoxText = "Nostradamus!";
+      case 2:
+        infoBoxText = "Incredible!";
+      case 3:
+        infoBoxText = "Amazing!";
+      case 4:
+        infoBoxText = "Very nice!";
+      case 5:
+        infoBoxText = "Well done!";
+      case 6:
+        infoBoxText = "Phew!";
+    }
+
     UserData.gameResult = GameResult.won;
     UserData.latestCompletedPuzzle = puzzleNum;
 

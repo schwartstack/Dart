@@ -17,7 +17,15 @@ class SettingsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Settings"),
+      title: Row(
+        children: [
+          const Expanded(child: Text("Settings")),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -33,12 +41,6 @@ class SettingsPopup extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Icon(Icons.close),
-        ),
-      ],
     );
   }
 }

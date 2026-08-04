@@ -15,15 +15,18 @@ class LossPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Game Over"),
+      title: Row(
+        children: [
+          const Expanded(child: Text("Game Over")),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
       content: Text("The secret word was \"${answer.toLowerCase()}.\""),
       actions: [
         ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),
-
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Icon(Icons.close),
-        ),
       ],
     );
   }

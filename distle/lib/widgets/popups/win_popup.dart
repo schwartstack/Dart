@@ -15,7 +15,15 @@ class WinPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("You Win!"),
+      title: Row(
+        children: [
+          const Expanded(child: Text("You Won!")),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -26,10 +34,6 @@ class WinPopup extends StatelessWidget {
       ),
       actions: [
         ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Icon(Icons.close),
-        ),
       ],
     );
   }

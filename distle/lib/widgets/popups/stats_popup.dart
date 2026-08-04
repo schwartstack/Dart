@@ -10,7 +10,15 @@ class StatsPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Stats"),
+      title: Row(
+        children: [
+          const Expanded(child: Text("Statistics")),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -23,12 +31,6 @@ class StatsPopup extends StatelessWidget {
           Text("Longest streak: ${gameState.longestStreak}"),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Icon(Icons.close),
-        ),
-      ],
     );
   }
 }

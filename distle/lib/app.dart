@@ -11,6 +11,7 @@ import 'package:distle/widgets/buttons/info_button.dart';
 import 'package:distle/widgets/buttons/results_button.dart';
 import 'package:distle/widgets/buttons/settings_button.dart';
 import 'package:distle/widgets/buttons/stats_button.dart';
+import 'package:distle/widgets/popups/help_popup.dart';
 import 'package:distle/widgets/popups/loss_popup.dart';
 import 'package:distle/widgets/popups/win_popup.dart';
 
@@ -109,16 +110,17 @@ class HomePage extends StatelessWidget {
                     const SizedBox(height: 5),
                     _buildLetterBoxRow(i),
                   ],
-                  gameState.gameResult == GameResult.playing
-                      ? InfoBox(
-                          info: gameState.infoBoxText,
-                          shakeId: gameState.invalidGuessCount,
-                        )
-                      : ResultsButton(
-                          puzzleNum: gameState.puzzleNum,
-                          answer: gameState.answer,
-                          guesses: gameState.todaysGuesses,
-                        ),
+                  InfoBox(
+                    info: gameState.infoBoxText,
+                    shakeId: gameState.invalidGuessCount,
+                  ),
+                  if (gameState.gameResult != GameResult.playing) ...[
+                    ResultsButton(
+                      puzzleNum: gameState.puzzleNum,
+                      answer: gameState.answer,
+                      guesses: gameState.todaysGuesses,
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -146,6 +148,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     super.initState();
     widget.gameState.addListener(_onGameStateChanged);
+    if (widget.gameState.gameHistory.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return HelpPopup();
+          },
+        );
+      });
+    }
   }
 
   @override

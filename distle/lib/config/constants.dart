@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:distle/config/data.dart';
 
-final String version = "1.0.7";
+final String version = "1.1.0";
 
 final DateTime startDate = DateTime(2026, 8, 1);
 const String title = "Distle";

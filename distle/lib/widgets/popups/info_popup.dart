@@ -15,7 +15,15 @@ class InfoPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       scrollable: true,
-      title: const Text("Contact"),
+      title: Row(
+        children: [
+          const Expanded(child: Text("Contact")),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,13 +55,6 @@ class InfoPopup extends StatelessWidget {
           ),
         ],
       ),
-
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Icon(Icons.close),
-        ),
-      ],
     );
   }
 }
