@@ -13,6 +13,8 @@
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
 - figure out how to crop the share image
+- fix dark mode text color in info popup
+- make help popup scrollable
 
 # Change Log
 
