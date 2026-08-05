@@ -54,14 +54,16 @@ class ShareImageGenerator {
     required String answer,
     required List<String> guesses,
   }) async {
-    const double scale = 1.8;
-    const double boxSize = 60.0;
-    const double borderSize = 20.0;
+    const double scale = 1;
+    const double boxSize = 30.0;
+    const double borderSize = 10.0;
     const double canvasWidth = (boxSize * 5) + (2 * borderSize);
     final double canvasHeight = (boxSize * guesses.length) + (2 * borderSize);
 
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
+
+    canvas.scale(scale);
 
     canvas.drawRect(
       Rect.fromLTWH(0, 0, canvasWidth, canvasHeight),

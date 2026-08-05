@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:distle/widgets/popups/info_popup.dart';
 
 class InfoButton extends StatelessWidget {
-  const InfoButton({super.key});
+  final bool darkMode;
+  const InfoButton({super.key, required this.darkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class InfoButton extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return InfoPopup();
+            return InfoPopup(darkMode: darkMode);
           },
         );
       },

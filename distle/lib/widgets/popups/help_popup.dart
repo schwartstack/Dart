@@ -47,124 +47,130 @@ class _HelpPopupState extends State<HelpPopup> {
   }
 
   Widget _page1() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Distle is a daily word guessing game"),
-        const SizedBox(height: 20),
-        const Text(
-          "When you guess a word, each letter gets a color representing how far away that letter is from the target letter on a standard U.S. keyboard. ",
-        ),
-        const SizedBox(height: 20),
-        Text.rich(
-          TextSpan(
-            children: [
-              const TextSpan(
-                text: "Green",
-                style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const TextSpan(text: " means close.\n\n"),
-              const TextSpan(
-                text: "Red",
-                style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const TextSpan(text: " means far away.\n\n"),
-              TextSpan(
-                text: "Brownish",
-                style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: Color.lerp(green, red, .5),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const TextSpan(text: " means somewhere inbetween."),
-            ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Distle is a daily word guessing game"),
+          const SizedBox(height: 40),
+          const Text(
+            "When you guess a word, each letter gets a color representing how far away that letter is from the target letter on a standard U.S. keyboard. ",
           ),
-        ),
-      ],
+          const SizedBox(height: 40),
+          Text.rich(
+            TextSpan(
+              children: [
+                const TextSpan(
+                  text: "Green",
+                  style: TextStyle(
+                    color: Colors.white,
+                    backgroundColor: green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const TextSpan(text: " means close.\n\n"),
+                const TextSpan(
+                  text: "Red",
+                  style: TextStyle(
+                    color: Colors.white,
+                    backgroundColor: red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const TextSpan(text: " means far away.\n\n"),
+                TextSpan(
+                  text: "Brownish",
+                  style: TextStyle(
+                    color: Colors.white,
+                    backgroundColor: Color.lerp(green, red, .5),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const TextSpan(text: " means somewhere inbetween."),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _page2() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(image: AssetImage('assets/images/circle.png')),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                "If a letter in your guessed word is correct, it will be surrounded by a circle like this.",
+    return const SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(image: AssetImage('assets/images/circle.png')),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "If a letter in your guessed word is correct, it will be surrounded by a circle like this.",
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(image: AssetImage('assets/images/arrow.png')),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                "If a letter in your guessed word is not correct, it will have an arrow pointing in the direction of the correct letter (on a standard U.S. keyboard).",
+            ],
+          ),
+          SizedBox(height: 40),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(image: AssetImage('assets/images/arrow.png')),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "If a letter in your guessed word is not correct, it will have an arrow pointing in the direction of the correct letter (on a standard U.S. keyboard).",
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(image: AssetImage('assets/images/gear.png')),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                "You can remove the arrows by turning on Hard Mode in the settings menu. (Click on the gear icon in the top-right of the main screen.)",
+            ],
+          ),
+          SizedBox(height: 40),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(image: AssetImage('assets/images/gear.png')),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "You can remove the arrows by turning on Hard Mode in the settings menu. (Click on the gear icon in the top-right of the main screen.)",
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _page3() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Let's take a look at an example guess"),
-        SizedBox(height: 20),
-        Image(image: AssetImage('assets/images/guess.png')),
-        SizedBox(height: 20),
-        Text(
-          "After guessing \"LAUGH\", we know for sure that in the target word, letter #2 is \"A\" and letter #5 is \"H\".",
-        ),
-        SizedBox(height: 20),
-        Text(
-          "We also know that letter #1 is pretty far away from the \"L\" key and in the top row of the keyboard (because the arrow is pointing to the left and slightly up).",
-        ),
-        SizedBox(height: 20),
-        Text(
-          "Letter #3 is sort of close-ish and directly to the left of the \"U\" key.",
-        ),
-        SizedBox(height: 20),
-        Text(
-          "Letter #4 is very close and is up and to the left of the \"G\" key.",
-        ),
-        SizedBox(height: 20),
-        Text("Given all of these clues, can you guess the secret word?"),
-      ],
+    return const SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Let's take a look at an example guess:"),
+          SizedBox(height: 20),
+          Image(image: AssetImage('assets/images/guess.png')),
+          SizedBox(height: 20),
+          Text(
+            "After guessing \"LAUGH\", we know for sure that in the target word, letter #2 is \"A\" and letter #5 is \"H\".",
+          ),
+          SizedBox(height: 20),
+          Text(
+            "We also know that letter #1 is pretty far away from the \"L\" key and in the top row of the keyboard (because the arrow is pointing to the left and slightly up).",
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Letter #3 is sort of close-ish and directly to the left of the \"U\" key.",
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Letter #4 is very close and is up and to the left of the \"G\" key.",
+          ),
+          SizedBox(height: 20),
+          Text("Given all of these clues, can you guess the secret word?"),
+        ],
+      ),
     );
   }
 
@@ -214,7 +220,7 @@ class _HelpPopupState extends State<HelpPopup> {
         ),
         content: SizedBox(
           width: 400,
-          height: 400,
+          height: 450,
           child: PageView(
             controller: _controller,
             physics: const NeverScrollableScrollPhysics(),

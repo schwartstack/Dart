@@ -89,7 +89,10 @@ class HomePage extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [HelpButton(), InfoButton()],
+                            children: [
+                              HelpButton(),
+                              InfoButton(darkMode: gameState.darkMode),
+                            ],
                           ),
                         ),
                         TitleBox(),

@@ -12,11 +12,15 @@
 - resize constants (titleBoxHeight, infoBoxHeight, boxSize, keySize) depending on user platform (mobile vs desktop) or maybe based on window size?
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
-- figure out how to crop the share image
-- fix dark mode text color in info popup
-- make help popup scrollable
 
 # Change Log
+
+## Version 1.1.1 (2026-08-05)
+
+- fix dark mode text color in info popup
+- make help popup scrollable
+- make popups closeable with keypresses
+- resize share image to remove dead space
 
 ## Version 1.1.0 (2026-08-04)
 
