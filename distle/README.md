@@ -15,6 +15,10 @@
 
 # Change Log
 
+## Version 1.2.0 (2026-08-07)
+
+- Add countdown timer to next puzzle
+
 ## Version 1.1.1 (2026-08-05)
 
 - fix dark mode text color in info popup

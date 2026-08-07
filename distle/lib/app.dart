@@ -6,6 +6,7 @@ import 'package:distle/widgets/boxes/game_board.dart';
 import 'package:distle/widgets/boxes/info_box.dart';
 import 'package:distle/widgets/boxes/keyboard.dart';
 import 'package:distle/widgets/boxes/title_box.dart';
+import 'package:distle/widgets/boxes/timer_box.dart';
 import 'package:distle/widgets/buttons/help_button.dart';
 import 'package:distle/widgets/buttons/info_button.dart';
 import 'package:distle/widgets/buttons/results_button.dart';
@@ -123,6 +124,7 @@ class HomePage extends StatelessWidget {
                       answer: gameState.answer,
                       guesses: gameState.todaysGuesses,
                     ),
+                    TimerBox(),
                   ],
                 ],
               ),

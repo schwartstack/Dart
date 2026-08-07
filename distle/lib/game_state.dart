@@ -53,7 +53,6 @@ class GameState extends ChangeNotifier {
 
   int _generatePuzzleNum() {
     initializeTimeZones();
-    final PacificTimeLocation = getLocation("America/Los_Angeles");
     final TZDateTime dateInPacificTime = TZDateTime.now(PacificTimeLocation);
 
     // final DateTime testDate = DateTime(2026, 8, 25);

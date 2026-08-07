@@ -67,7 +67,7 @@ class _InfoBoxState extends State<InfoBox> with SingleTickerProviderStateMixin {
           },
           child: Text(
             widget.info ?? "",
-            style: const TextStyle(fontSize: infoBoxHeight / 4),
+            style: const TextStyle(fontSize: infoBoxHeight / 2),
           ),
         ),
       ),
