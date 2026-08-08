@@ -1,3 +1,4 @@
+import 'package:distle/config/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,6 +7,7 @@ class SettingsPopup extends StatefulWidget {
   final bool hardMode;
   final void Function(bool value) onDarkModeSwitched;
   final void Function(bool value) onHardModeSwitched;
+  final void Function(double value) onKeySizeSwitched;
 
   const SettingsPopup({
     super.key,
@@ -13,6 +15,7 @@ class SettingsPopup extends StatefulWidget {
     required this.hardMode,
     required this.onDarkModeSwitched,
     required this.onHardModeSwitched,
+    required this.onKeySizeSwitched,
   });
 
   @override
@@ -68,6 +71,14 @@ class _SettingsPopupState extends State<SettingsPopup> {
               title: const Text("Hard mode"),
               value: widget.hardMode,
               onChanged: widget.onHardModeSwitched,
+            ),
+            SizedBox(height: 30),
+            Text("Keyboard size"),
+            Slider.adaptive(
+              value: UserData.keySize,
+              min: 10,
+              max: 60,
+              onChanged: widget.onKeySizeSwitched,
             ),
           ],
         ),

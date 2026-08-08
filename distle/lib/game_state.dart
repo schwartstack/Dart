@@ -15,12 +15,13 @@ class GameState extends ChangeNotifier {
   late bool darkMode = UserData.darkMode;
   late bool hardMode = UserData.hardMode;
   late List<String> gameHistory = UserData.gameHistory;
-  late int currentStreak = UserData.currentStreak;
-  late int longestStreak = UserData.longestStreak;
+  late int currentStreak = UserData.currentStreak; //foo
+  late int longestStreak = UserData.longestStreak; //foo
+  late double keySize = UserData.keySize;
   late int puzzleNum;
   late String answer;
   late List<String> todaysGuesses;
-  late int potentialNextStreak;
+  late int potentialNextStreak; //foo
   String currentGuess = "";
   int invalidGuessCount = 1;
   String? infoBoxText;
@@ -35,9 +36,9 @@ class GameState extends ChangeNotifier {
     if (lastCompleted != null &&
         lastCompleted + 1 == puzzleNum &&
         lastPlayed != puzzleNum) {
-      potentialNextStreak = currentStreak + 1;
+      potentialNextStreak = currentStreak + 1; //foo
     } else {
-      potentialNextStreak = 1;
+      potentialNextStreak = 1; //foo
     }
 
     if (lastPlayed != puzzleNum) {
@@ -86,6 +87,16 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setKeySize(double value) {
+    if (keySize == value) return;
+
+    UserData.keySize = value;
+    UserData.save();
+
+    keySize = UserData.keySize;
+    notifyListeners();
+  }
+
   void handleKeyPress(String letter) {
     if (gameResult == GameResult.playing && currentGuess.length < 5) {
       currentGuess += letter;
@@ -112,9 +123,9 @@ class GameState extends ChangeNotifier {
     UserData.todaysGuesses.add(currentGuess);
     todaysGuesses = UserData.todaysGuesses;
     if (todaysGuesses.length == 1) {
-      UserData.currentStreak = 0;
+      UserData.currentStreak = 0; //foo
       UserData.gameHistory.add("X");
-      currentStreak = UserData.currentStreak;
+      currentStreak = UserData.currentStreak; //foo
       gameHistory = UserData.gameHistory;
     }
     UserData.save();
@@ -154,11 +165,12 @@ class GameState extends ChangeNotifier {
     UserData.gameResult = GameResult.won;
     UserData.latestCompletedPuzzle = puzzleNum;
 
-    UserData.currentStreak = potentialNextStreak;
+    UserData.currentStreak = potentialNextStreak; //foo
 
     if (UserData.currentStreak > UserData.longestStreak) {
-      UserData.longestStreak = UserData.currentStreak;
-    }
+      //foo
+      UserData.longestStreak = UserData.currentStreak; //foo
+    } //foo
 
     UserData.gameHistory.removeLast();
     UserData.gameHistory.add("${todaysGuesses.length}");
@@ -166,8 +178,8 @@ class GameState extends ChangeNotifier {
     UserData.save();
 
     gameResult = UserData.gameResult;
-    currentStreak = UserData.currentStreak;
-    longestStreak = UserData.longestStreak;
+    currentStreak = UserData.currentStreak; //foo
+    longestStreak = UserData.longestStreak; //foo
     gameHistory = UserData.gameHistory;
 
     notifyListeners();
@@ -221,4 +233,44 @@ class GameState extends ChangeNotifier {
     double winProportion = wins / attempts;
     return "${(winProportion * 100).toStringAsFixed(2)}%";
   }
+
+  // int getCurrentStreak() {
+  //   List<String> reversedGameHistory = gameHistory.reversed.toList();
+  //   if (gameResult == GameResult.playing && reversedGameHistory[0] == "X") {
+  //     reversedGameHistory.removeAt(0);
+  //   }
+  //   int streak = 0;
+  //   for (String reversedGameHistoryItem in reversedGameHistory) {
+  //     if (reversedGameHistoryItem == "X") {
+  //       break;
+  //     } else {
+  //       streak++;
+  //     }
+  //   }
+  //   return streak;
+  // }
+
+  // int getLongestStreak() {
+  //   if (gameHistory.isEmpty) return 0;
+  //   if (gameHistory.length == 1 && gameResult == GameResult.playing) return 0;
+  //   int pointer = gameResult == GameResult.playing
+  //       ? gameHistory.length - 2
+  //       : gameHistory.length - 1;
+  //   int currentStreak = 0;
+  //   int longestStreak = 0;
+  //   for (int i = pointer; i < 0; i--) {
+  //     if (gameHistory[i] == "X") {
+  //       if (currentStreak > longestStreak) {
+  //         longestStreak = currentStreak;
+  //         currentStreak = 0;
+  //       }
+  //     } else {
+  //       currentStreak++;
+  //     }
+  //   }
+  //   if (currentStreak > longestStreak) {
+  //     longestStreak = currentStreak;
+  //   }
+  //   return longestStreak;
+  // }
 }

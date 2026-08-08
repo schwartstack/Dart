@@ -220,7 +220,7 @@ class _HelpPopupState extends State<HelpPopup> {
         ),
         content: SizedBox(
           width: 400,
-          height: 450,
+          height: 300,
           child: PageView(
             controller: _controller,
             physics: const NeverScrollableScrollPhysics(),
@@ -237,8 +237,14 @@ class _HelpPopupState extends State<HelpPopup> {
             children: [
               if (_page > 0)
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary, // Background color
+                    foregroundColor: Colors.white, // Text and icon color
+                  ),
                   onPressed: _previous,
-                  child: const Icon(Icons.arrow_back),
+                  child: Icon(Icons.arrow_back),
                 )
               else
                 const SizedBox.shrink(),
@@ -247,11 +253,26 @@ class _HelpPopupState extends State<HelpPopup> {
 
               if (_page < _numPages - 1)
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary, // Background color
+                    foregroundColor: Colors.white, // Text and icon color
+                  ),
                   onPressed: _next,
                   child: const Icon(Icons.arrow_forward),
                 )
               else
-                ElevatedButton(onPressed: _close, child: const Text("OK")),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary, // Background color
+                    foregroundColor: Colors.white, // Text and icon color
+                  ),
+                  onPressed: _close,
+                  child: const Text("OK"),
+                ),
             ],
           ),
         ],

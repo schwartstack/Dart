@@ -59,6 +59,9 @@ class _StatsPopupState extends State<StatsPopup> {
               "Current streak: ${widget.gameState.gameResult == GameResult.playing ? widget.gameState.potentialNextStreak - 1 : widget.gameState.currentStreak}",
             ),
             Text("Longest streak: ${widget.gameState.longestStreak}"),
+
+            // Text("Current streak: ${widget.gameState.getCurrentStreak()}"),//foo
+            // Text("Longest streak: ${widget.gameState.getLongestStreak()}"),//foo
           ],
         ),
       ),

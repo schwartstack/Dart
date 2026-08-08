@@ -1,8 +1,7 @@
-import 'package:distle/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:distle/config/constants.dart';
+import 'package:distle/game_state.dart';
 
 class Keyboard extends StatelessWidget {
   final GameState gameState;
@@ -10,7 +9,7 @@ class Keyboard extends StatelessWidget {
   const Keyboard({super.key, required this.gameState});
 
   Widget _buildLetterKey(String letter) {
-    return LetterButton(letter: letter, onKeyPress: gameState.handleKeyPress);
+    return LetterButton(letter: letter, gameState: gameState);
   }
 
   Widget _buildRow1() {
@@ -37,7 +36,7 @@ class Keyboard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: keySize / 4),
+        SizedBox(width: gameState.keySize / 4),
         _buildLetterKey("A"),
         _buildLetterKey("S"),
         _buildLetterKey("D"),
@@ -56,7 +55,7 @@ class Keyboard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: keySize * 3 / 4),
+        SizedBox(width: gameState.keySize * 3 / 4),
         _buildLetterKey("Z"),
         _buildLetterKey("X"),
         _buildLetterKey("C"),
@@ -64,8 +63,8 @@ class Keyboard extends StatelessWidget {
         _buildLetterKey("B"),
         _buildLetterKey("N"),
         _buildLetterKey("M"),
-        EnterButton(onEnterPress: gameState.handleEnterPress),
-        DeleteButton(onDeletePress: gameState.handleDeletePress),
+        EnterButton(gameState: gameState),
+        DeleteButton(gameState: gameState),
       ],
     );
   }
@@ -117,21 +116,21 @@ class Keyboard extends StatelessWidget {
 }
 
 class LetterButton extends StatelessWidget {
+  final GameState gameState;
   final String letter;
-  final void Function(String) onKeyPress;
 
   const LetterButton({
     super.key,
     required this.letter,
-    required this.onKeyPress,
+    required this.gameState,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onKeyPress(letter),
+      onPressed: () => gameState.handleKeyPress(letter),
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(keySize, keySize),
+        fixedSize: Size(gameState.keySize, gameState.keySize),
         padding: EdgeInsets.zero,
         minimumSize: Size.zero, // Removes default minimum size constraints
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -143,23 +142,26 @@ class LetterButton extends StatelessWidget {
       ),
       child: Text(
         letter,
-        style: TextStyle(fontSize: keySize / 2, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: gameState.keySize / 2,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 }
 
 class EnterButton extends StatelessWidget {
-  final void Function() onEnterPress;
+  final GameState gameState;
 
-  const EnterButton({super.key, required this.onEnterPress});
+  const EnterButton({super.key, required this.gameState});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onEnterPress(),
+      onPressed: () => gameState.handleEnterPress(),
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(keySize, keySize),
+        fixedSize: Size(gameState.keySize, gameState.keySize),
         padding: EdgeInsets.zero,
         minimumSize: Size.zero, // Removes default minimum size constraints
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -169,22 +171,22 @@ class EnterButton extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      child: Icon(Icons.keyboard_return, size: keySize * 3 / 5),
+      child: Icon(Icons.keyboard_return, size: gameState.keySize * 3 / 5),
     );
   }
 }
 
 class DeleteButton extends StatelessWidget {
-  final void Function() onDeletePress;
+  final GameState gameState;
 
-  const DeleteButton({super.key, required this.onDeletePress});
+  const DeleteButton({super.key, required this.gameState});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onDeletePress(),
+      onPressed: () => gameState.handleDeletePress(),
       style: ElevatedButton.styleFrom(
-        fixedSize: const Size(keySize, keySize),
+        fixedSize: Size(gameState.keySize, gameState.keySize),
         padding: EdgeInsets.zero,
         minimumSize: Size.zero, // Removes default minimum size constraints
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -194,7 +196,7 @@ class DeleteButton extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
-      child: Icon(Icons.backspace_outlined, size: keySize * 3 / 5),
+      child: Icon(Icons.backspace_outlined, size: gameState.keySize * 3 / 5),
     );
   }
 }

@@ -8,9 +8,10 @@ class UserData {
   static late bool hardMode;
   static late List<String> todaysGuesses;
   static late List<String> gameHistory;
-  static late int currentStreak;
-  static late int longestStreak;
+  static late int currentStreak; //foo
+  static late int longestStreak; //foo
   static late GameResult gameResult;
+  static late double keySize;
 
   static Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -19,10 +20,13 @@ class UserData {
     darkMode = prefs.getBool("darkMode") ?? false;
     hardMode = prefs.getBool("hardMode") ?? false;
     todaysGuesses = prefs.getStringList("todaysGuesses") ?? [];
-    gameHistory = prefs.getStringList("gameHistory") ?? [];
+    gameHistory =
+        prefs.getStringList("gameHistory") ??
+        []; //foo["1", "1", "1", "X", "1", "1"];
     final resultName = prefs.getString("gameResult");
-    currentStreak = prefs.getInt("currentStreak") ?? 0;
-    longestStreak = prefs.getInt("longestStreak") ?? 0;
+    currentStreak = prefs.getInt("currentStreak") ?? 0; //foo
+    longestStreak = prefs.getInt("longestStreak") ?? 0; //foo
+    keySize = prefs.getDouble("keySize") ?? 42.0;
     gameResult = GameResult.values.firstWhere(
       (e) => e.name == resultName,
       orElse: () => GameResult.playing,
@@ -39,8 +43,9 @@ class UserData {
     await prefs.setBool("hardMode", hardMode);
     await prefs.setStringList("todaysGuesses", todaysGuesses);
     await prefs.setStringList("gameHistory", gameHistory);
-    await prefs.setInt("currentStreak", currentStreak);
-    await prefs.setInt("longestStreak", longestStreak);
+    await prefs.setInt("currentStreak", currentStreak); //foo
+    await prefs.setInt("longestStreak", longestStreak); //foo
     await prefs.setString("gameResult", gameResult.name);
+    await prefs.setDouble("keySize", keySize);
   }
 }
