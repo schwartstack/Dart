@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 import 'package:distle/config/constants.dart';
 import 'package:distle/game_state.dart';

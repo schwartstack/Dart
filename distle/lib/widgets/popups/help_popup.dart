@@ -238,10 +238,8 @@ class _HelpPopupState extends State<HelpPopup> {
               if (_page > 0)
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.primary, // Background color
-                    foregroundColor: Colors.white, // Text and icon color
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
                   ),
                   onPressed: _previous,
                   child: Icon(Icons.arrow_back),
@@ -254,10 +252,8 @@ class _HelpPopupState extends State<HelpPopup> {
               if (_page < _numPages - 1)
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.primary, // Background color
-                    foregroundColor: Colors.white, // Text and icon color
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
                   ),
                   onPressed: _next,
                   child: const Icon(Icons.arrow_forward),
@@ -265,10 +261,8 @@ class _HelpPopupState extends State<HelpPopup> {
               else
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.primary, // Background color
-                    foregroundColor: Colors.white, // Text and icon color
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
                   ),
                   onPressed: _close,
                   child: const Text("OK"),

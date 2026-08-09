@@ -29,6 +29,10 @@ class ResultsButton extends StatelessWidget {
             SizedBox(
               height: size,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                ),
                 onPressed: () => guesses.last == answer
                     ? showDialog(
                         context: context,

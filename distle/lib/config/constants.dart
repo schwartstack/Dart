@@ -5,7 +5,7 @@ import 'package:timezone/timezone.dart';
 
 import 'package:distle/config/data.dart';
 
-final String version = "1.2.2";
+final String version = "1.2.3";
 
 final DateTime startDate = DateTime(2026, 8, 1);
 final PacificTimeLocation = getLocation("America/Los_Angeles");

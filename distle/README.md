@@ -14,6 +14,10 @@
 
 # Change Log
 
+## Version 1.2.3 (2026-08-08)
+
+- update results button color
+
 ## Version 1.2.2 (2026-08-08)
 
 - Widgets resize themselves dynamically based on user's window size
