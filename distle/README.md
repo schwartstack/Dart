@@ -11,8 +11,13 @@
 - win animation
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
+- fix bug when returning to site after winning/losing it resets _dialogShown so changing a setting causes the results popup to open
 
 # Change Log
+
+## Version 1.2.5 (2026-08-08)
+
+- update info popup
 
 ## Version 1.2.4 (2026-08-08)
 

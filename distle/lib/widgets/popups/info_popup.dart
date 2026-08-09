@@ -64,30 +64,37 @@ class _InfoPopupState extends State<InfoPopup> {
             HyperLink(
               linkStyle: linkStyle,
               text:
-                  "To report a bug or for any other reason: [email me](mailto:jzs1986@gmail.com)",
-              textStyle: TextStyle(
-                color: widget.darkMode ? Colors.white : Colors.black,
-              ),
-            ),
-            SizedBox(height: 5),
-            HyperLink(
-              linkStyle: linkStyle,
-              text:
-                  "Check out my [website](http://schwartstack.github.io), my [LinkedIn](http://www.linkedin.com/in/schwartstack), and my [GitHub](https://github.com/schwartstack/)",
-              textStyle: TextStyle(
-                color: widget.darkMode ? Colors.white : Colors.black,
-              ),
-            ),
-            SizedBox(height: 5),
-            HyperLink(
-              linkStyle: linkStyle,
-              text:
-                  "If you enjoy this game and you want to support it, you can [buy me a coffee](https://ko-fi.com/schwartstack)",
+                  "If you enjoy this game and you want to support it, you can [buy me a coffee](https://ko-fi.com/schwartstack).",
               textStyle: TextStyle(
                 color: widget.darkMode ? Colors.white : Colors.black,
               ),
             ),
             SizedBox(height: 20),
+            HyperLink(
+              linkStyle: linkStyle,
+              text:
+                  "To report a bug or for any other reason: [email me](mailto:jzs1986@gmail.com).",
+              textStyle: TextStyle(
+                color: widget.darkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Distle is a Flutter web app created by Jonathan Schwartz, a data scientist from San Jose, California.",
+              style: TextStyle(
+                color: widget.darkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            SizedBox(height: 20),
+            HyperLink(
+              linkStyle: linkStyle,
+              text:
+                  "Check out my [website](http://schwartstack.github.io), my [LinkedIn](http://www.linkedin.com/in/schwartstack), and my [GitHub](https://github.com/schwartstack/).",
+              textStyle: TextStyle(
+                color: widget.darkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            SizedBox(height: 30),
             Center(
               child: SelectableText(
                 style: TextStyle(color: Colors.grey, fontSize: 10),
