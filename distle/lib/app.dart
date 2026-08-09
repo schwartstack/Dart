@@ -147,6 +147,7 @@ class HomePage extends StatelessWidget {
                         puzzleNum: gameState.puzzleNum,
                         answer: gameState.answer,
                         guesses: gameState.todaysGuesses,
+                        streak: gameState.currentStreak,
                       ),
                       TimerBox(
                         size: timerBoxHeight,
@@ -212,6 +213,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           puzzleNum: widget.gameState.puzzleNum,
           answer: widget.gameState.answer,
           guesses: widget.gameState.todaysGuesses,
+          streak: widget.gameState.currentStreak,
         ),
       );
     }

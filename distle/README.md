@@ -14,6 +14,10 @@
 
 # Change Log
 
+## Version 1.2.4 (2026-08-08)
+
+- add streak to win popup
+
 ## Version 1.2.3 (2026-08-08)
 
 - update results button color

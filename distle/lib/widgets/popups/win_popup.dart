@@ -5,11 +5,13 @@ class WinPopup extends StatelessWidget {
   final int puzzleNum;
   final String answer;
   final List<String> guesses;
+  final int streak;
   const WinPopup({
     super.key,
     required this.puzzleNum,
     required this.answer,
     required this.guesses,
+    required this.streak,
   });
 
   @override
@@ -17,7 +19,7 @@ class WinPopup extends StatelessWidget {
     return AlertDialog(
       title: Row(
         children: [
-          const Expanded(child: Text("You Won!")),
+          const Expanded(child: Text("Congratulations!")),
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context).pop(),
@@ -28,8 +30,12 @@ class WinPopup extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Congratulations! You won in ${guesses.length} guess${guesses.length == 1 ? "" : "es"}.",
+            "🎉 You won in ${guesses.length} guess${guesses.length == 1 ? "" : "es"}! 🎉",
           ),
+          if (streak > 1) ...[
+            SizedBox(height: 20),
+            Text("$streak day streak!"),
+          ],
         ],
       ),
       actions: [

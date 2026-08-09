@@ -10,6 +10,7 @@ class ResultsButton extends StatelessWidget {
   final int puzzleNum;
   final String answer;
   final List<String> guesses;
+  final int streak;
   const ResultsButton({
     super.key,
     required this.size,
@@ -17,6 +18,7 @@ class ResultsButton extends StatelessWidget {
     required this.puzzleNum,
     required this.answer,
     required this.guesses,
+    required this.streak,
   });
 
   @override
@@ -41,6 +43,7 @@ class ResultsButton extends StatelessWidget {
                             puzzleNum: puzzleNum,
                             answer: answer,
                             guesses: guesses,
+                            streak: streak,
                           );
                         },
                       )
