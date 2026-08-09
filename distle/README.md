@@ -9,12 +9,14 @@
         - distance per guess
 - guess animation
 - win animation
-- resize constants (titleBoxHeight, infoBoxHeight, boxSize, keySize) depending on user platform (mobile vs desktop) or maybe based on window size?
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
-- Calculate streaks dynamically from gameHistory instead of storing them separately (requires changing how game history works. "" for missed days)
 
 # Change Log
+
+## Version 1.2.2 (2026-08-08)
+
+- Widgets resize themselves dynamically based on user's window size
 
 ## Version 1.2.1 (2026-08-08)
 

@@ -2,17 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:distle/config/constants.dart';
 import 'package:distle/config/user_data.dart';
 import 'package:distle/helpers.dart';
 
 class LetterBoxRow extends StatelessWidget {
+  final double size;
   final bool isSubmitted;
   final String guess;
   final String answer;
 
   const LetterBoxRow({
     super.key,
+    required this.size,
     required this.guess,
     required this.answer,
     required this.isSubmitted,
@@ -20,6 +21,7 @@ class LetterBoxRow extends StatelessWidget {
 
   Widget _buildLetterBox(int index) {
     return LetterBox(
+      size: size,
       guessLetter: guess.length > index ? guess[index] : null,
       targetLetter: answer[index],
       isSubmitted: isSubmitted,
@@ -41,12 +43,14 @@ class LetterBoxRow extends StatelessWidget {
 }
 
 class LetterBox extends StatelessWidget {
+  final double size;
   final String? guessLetter;
   final String targetLetter;
   final bool isSubmitted;
 
   const LetterBox({
     super.key,
+    required this.size,
     required this.guessLetter,
     required this.targetLetter,
     required this.isSubmitted,
@@ -56,7 +60,7 @@ class LetterBox extends StatelessWidget {
   Widget build(BuildContext context) {
     double? theta = calculateAngle(guessLetter, targetLetter);
     return SizedBox.square(
-      dimension: boxSize,
+      dimension: size,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -76,13 +80,13 @@ class LetterBox extends StatelessWidget {
 
           if (isSubmitted && theta == null)
             CustomPaint(
-              size: const Size.square(boxSize),
+              size: Size.square(size),
               painter: CirclePainter(UserData.darkMode),
             ),
 
           if (isSubmitted && theta != null && !UserData.hardMode)
             CustomPaint(
-              size: const Size.square(boxSize),
+              size: Size.square(size),
               painter: ArrowPainter(theta, UserData.darkMode),
             ),
 
@@ -90,8 +94,8 @@ class LetterBox extends StatelessWidget {
             child: Center(
               child: Text(
                 guessLetter ?? "",
-                style: const TextStyle(
-                  fontSize: boxSize / 2,
+                style: TextStyle(
+                  fontSize: size / 2,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -113,7 +117,7 @@ class ArrowPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
 
-    const margin = 10.0;
+    final margin = size.width / 8;
     final radius = size.width / 2 - margin;
 
     final tip = Offset(
@@ -135,8 +139,8 @@ class ArrowPainter extends CustomPainter {
 
     canvas.drawLine(start, tip, paint);
 
-    const arrowHeadLength = 10.0;
-    const arrowHeadAngle = pi / 4; // 30 degrees
+    final arrowHeadLength = size.width / 6;
+    const arrowHeadAngle = pi / 4;
 
     final leftPoint = Offset(
       tip.dx - arrowHeadLength * cos(theta - arrowHeadAngle),
@@ -166,7 +170,7 @@ class CirclePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
 
-    const margin = 10.0;
+    final margin = size.width / 8;
     final radius = size.width / 2 - margin;
 
     final paint = Paint()

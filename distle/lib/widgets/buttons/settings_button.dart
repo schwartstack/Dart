@@ -25,7 +25,6 @@ class SettingsButton extends StatelessWidget {
                   hardMode: gameState.hardMode,
                   onDarkModeSwitched: gameState.setDarkMode,
                   onHardModeSwitched: gameState.setHardMode,
-                  onKeySizeSwitched: gameState.setKeySize,
                 );
               },
             );

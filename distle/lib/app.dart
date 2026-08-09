@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 import 'package:distle/config/constants.dart';
 import 'package:distle/game_state.dart';
@@ -49,9 +50,10 @@ class HomePage extends StatelessWidget {
   final GameState gameState;
   const HomePage({super.key, required this.gameState});
 
-  Widget _buildLetterBoxRow(int rowNumber) {
+  Widget _buildLetterBoxRow(double size, int rowNumber) {
     if (gameState.todaysGuesses.length > rowNumber) {
       return LetterBoxRow(
+        size: size,
         guess: gameState.todaysGuesses[rowNumber],
         answer: gameState.answer,
         isSubmitted: true,
@@ -59,12 +61,14 @@ class HomePage extends StatelessWidget {
     }
     if (gameState.todaysGuesses.length == rowNumber) {
       return LetterBoxRow(
+        size: size,
         guess: gameState.currentGuess,
         answer: gameState.answer,
         isSubmitted: false,
       );
     }
     return LetterBoxRow(
+      size: size,
       guess: "",
       answer: gameState.answer,
       isSubmitted: false,
@@ -74,64 +78,90 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: titleBoxHeight,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              HelpButton(),
-                              InfoButton(darkMode: gameState.darkMode),
-                            ],
-                          ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double titleHeight = constraints.maxHeight / 12;
+          final double letterBoxSize = constraints.maxHeight / 11;
+          final double maxLetterBoxSize = constraints.maxWidth / 5;
+          final double infoBoxHeight = constraints.maxHeight * 1 / 28;
+          final double resultsButtonHeight = constraints.maxHeight * 1 / 28;
+          final double timerBoxHeight = constraints.maxHeight * 1 / 28;
+          final double maxKeyboardHeight = constraints.maxHeight * 2 / 11;
+          final double maxKeyboardWidth = constraints.maxWidth;
+          final double keyWidth = min(
+            maxKeyboardHeight / 3,
+            maxKeyboardWidth / 10,
+          );
+          return SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: titleHeight,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  HelpButton(),
+                                  InfoButton(darkMode: gameState.darkMode),
+                                ],
+                              ),
+                            ),
+                            TitleBox(height: titleHeight),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  StatsButton(gameState: gameState),
+                                  SettingsButton(gameState: gameState),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        TitleBox(),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              StatsButton(gameState: gameState),
-                              SettingsButton(gameState: gameState),
-                            ],
-                          ),
+                      ),
+                      for (int i = 0; i < numRows; i++) ...[
+                        const SizedBox(height: 5),
+                        _buildLetterBoxRow(
+                          min(letterBoxSize, maxLetterBoxSize),
+                          i,
                         ),
                       ],
-                    ),
+                      InfoBox(
+                        size: infoBoxHeight,
+                        info: gameState.infoBoxText,
+                        shakeId: gameState.invalidGuessCount,
+                      ),
+                      ResultsButton(
+                        size: resultsButtonHeight,
+                        gameResult: gameState.gameResult,
+                        puzzleNum: gameState.puzzleNum,
+                        answer: gameState.answer,
+                        guesses: gameState.todaysGuesses,
+                      ),
+                      TimerBox(
+                        size: timerBoxHeight,
+                        gameResult: gameState.gameResult,
+                      ),
+                    ],
                   ),
-                  for (int i = 0; i < numRows; i++) ...[
-                    const SizedBox(height: 5),
-                    _buildLetterBoxRow(i),
-                  ],
-                  InfoBox(
-                    info: gameState.infoBoxText,
-                    shakeId: gameState.invalidGuessCount,
-                  ),
-                  if (gameState.gameResult != GameResult.playing) ...[
-                    ResultsButton(
-                      puzzleNum: gameState.puzzleNum,
-                      answer: gameState.answer,
-                      guesses: gameState.todaysGuesses,
-                    ),
-                    TimerBox(),
-                  ],
-                ],
-              ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Keyboard(keyWidth: keyWidth, gameState: gameState),
+                ),
+              ],
             ),
-            Expanded(flex: 1, child: Keyboard(gameState: gameState)),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

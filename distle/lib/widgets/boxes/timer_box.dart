@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:distle/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart';
 
 import 'package:distle/config/constants.dart';
 
 class TimerBox extends StatefulWidget {
-  const TimerBox({super.key});
+  final double size;
+  final GameResult gameResult;
+  const TimerBox({super.key, required this.size, required this.gameResult});
 
   @override
   State<TimerBox> createState() => _TimerBoxState();
@@ -54,11 +57,24 @@ class _TimerBoxState extends State<TimerBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "Next puzzle drops in "
-        "${format(hours)}:${format(minutes)}:${format(seconds)}",
-      ),
-    );
+    if (widget.gameResult != GameResult.playing) {
+      return SizedBox(
+        height: widget.size,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Center(
+              child: Text(
+                "Next puzzle drops in "
+                "${format(hours)}:${format(minutes)}:${format(seconds)}",
+                style: TextStyle(fontSize: widget.size / 2),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return SizedBox(height: widget.size);
+    }
   }
 }

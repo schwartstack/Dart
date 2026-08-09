@@ -2,13 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:distle/config/constants.dart';
-
 class InfoBox extends StatefulWidget {
+  final double size;
   final String? info;
   final int shakeId;
 
-  const InfoBox({super.key, this.info, required this.shakeId});
+  const InfoBox({
+    super.key,
+    required this.size,
+    this.info,
+    required this.shakeId,
+  });
 
   @override
   State<InfoBox> createState() => _InfoBoxState();
@@ -55,7 +59,7 @@ class _InfoBoxState extends State<InfoBox> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: infoBoxHeight,
+      height: widget.size,
       child: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -67,7 +71,7 @@ class _InfoBoxState extends State<InfoBox> with SingleTickerProviderStateMixin {
           },
           child: Text(
             widget.info ?? "",
-            style: const TextStyle(fontSize: infoBoxHeight / 2),
+            style: TextStyle(fontSize: widget.size / 2),
           ),
         ),
       ),
