@@ -18,7 +18,7 @@ class TimerBox extends StatefulWidget {
 class _TimerBoxState extends State<TimerBox> {
   Timer? _timer;
 
-  TZDateTime dateInPacificTime = TZDateTime.now(PacificTimeLocation);
+  TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
 
   int hours = 23;
   int minutes = 59;
@@ -29,7 +29,7 @@ class _TimerBoxState extends State<TimerBox> {
   }
 
   void updateTime() {
-    dateInPacificTime = TZDateTime.now(PacificTimeLocation);
+    dateInPacificTime = TZDateTime.now(pacificTimeLocation);
 
     hours = 23 - dateInPacificTime.hour;
     minutes = 59 - dateInPacificTime.minute;

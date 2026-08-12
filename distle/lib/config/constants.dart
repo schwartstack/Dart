@@ -5,10 +5,10 @@ import 'package:timezone/timezone.dart';
 
 import 'package:distle/config/data.dart';
 
-final String version = "1.2.4";
+final String version = "1.3.0";
 
 final DateTime startDate = DateTime(2026, 8, 1);
-final PacificTimeLocation = getLocation("America/Los_Angeles");
+final pacificTimeLocation = getLocation("America/Los_Angeles");
 const String title = "Distle";
 const int numRows = 6;
 const Color green = Color.fromRGBO(1, 154, 1, 1.0);

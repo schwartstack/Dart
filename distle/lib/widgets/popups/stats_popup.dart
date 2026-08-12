@@ -1,3 +1,4 @@
+import 'package:distle/config/user_data.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distle/game_state.dart';
@@ -56,7 +57,7 @@ class _StatsPopupState extends State<StatsPopup> {
               "Win rate: ${widget.gameState.getWins()}/${widget.gameState.getAttempts()} (${widget.gameState.getWinPercentage()})",
             ),
             Text(
-              "Current streak: ${widget.gameState.gameResult == GameResult.playing ? widget.gameState.potentialNextStreak - 1 : widget.gameState.currentStreak}",
+              "Current streak: ${widget.gameState.gameResult == GameResult.playing ? UserData.potentialNextStreak - 1 : widget.gameState.currentStreak}",
             ),
             Text("Longest streak: ${widget.gameState.longestStreak}"),
           ],

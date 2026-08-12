@@ -10,6 +10,8 @@ import 'package:distle/helpers.dart';
 
 enum GameResult { playing, won, lost }
 
+enum Holiday { halloween, valentines }
+
 class GameState extends ChangeNotifier {
   late GameResult gameResult = UserData.gameResult;
   late bool darkMode = UserData.darkMode;
@@ -17,11 +19,10 @@ class GameState extends ChangeNotifier {
   late List<String> gameHistory = UserData.gameHistory;
   late int currentStreak = UserData.currentStreak;
   late int longestStreak = UserData.longestStreak;
-  late double keySize = UserData.keySize;
   late int puzzleNum;
   late String answer;
   late List<String> todaysGuesses;
-  late int potentialNextStreak;
+  late Holiday? holiday;
   String currentGuess = "";
   int invalidGuessCount = 1;
   String? infoBoxText;
@@ -29,20 +30,21 @@ class GameState extends ChangeNotifier {
   GameState() {
     puzzleNum = _generatePuzzleNum();
     answer = _generateAnswer(puzzleNum);
+    holiday = _getHoliday();
 
     final lastPlayed = UserData.latestPuzzlePlayed;
     final lastCompleted = UserData.latestCompletedPuzzle;
 
-    if (lastCompleted != null &&
-        lastCompleted + 1 == puzzleNum &&
-        lastPlayed != puzzleNum) {
-      potentialNextStreak = currentStreak + 1;
-    } else {
-      potentialNextStreak = 1;
+    if (lastPlayed != puzzleNum) {
+      if (lastCompleted != null && lastCompleted + 1 == puzzleNum) {
+        UserData.potentialNextStreak = currentStreak + 1;
+      } else {
+        UserData.potentialNextStreak = 1;
+      }
+      UserData.save();
     }
 
     if (lastPlayed != puzzleNum) {
-      UserData.latestPuzzlePlayed = puzzleNum;
       UserData.gameResult = GameResult.playing;
       UserData.todaysGuesses = [];
       UserData.save();
@@ -54,9 +56,21 @@ class GameState extends ChangeNotifier {
 
   int _generatePuzzleNum() {
     initializeTimeZones();
-    final TZDateTime dateInPacificTime = TZDateTime.now(PacificTimeLocation);
+    final TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
     final duration = dateInPacificTime.difference(startDate);
     return duration.inDays;
+  }
+
+  Holiday? _getHoliday() {
+    final TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
+    if (dateInPacificTime.month == 2 && dateInPacificTime.day == 14) {
+      holiday = Holiday.valentines;
+    } else if (dateInPacificTime.month == 10 && dateInPacificTime.day == 31) {
+      holiday = Holiday.halloween;
+    } else {
+      holiday = null;
+    }
+    return holiday;
   }
 
   String _generateAnswer(int puzzleNum) {
@@ -109,6 +123,7 @@ class GameState extends ChangeNotifier {
     UserData.todaysGuesses.add(currentGuess);
     todaysGuesses = UserData.todaysGuesses;
     if (todaysGuesses.length == 1) {
+      UserData.latestPuzzlePlayed = puzzleNum;
       UserData.currentStreak = 0;
       UserData.gameHistory.add("X");
       currentStreak = UserData.currentStreak;
@@ -133,25 +148,31 @@ class GameState extends ChangeNotifier {
   }
 
   void handleWin() {
-    switch (todaysGuesses.length) {
-      case 1:
-        infoBoxText = "Nostradamus!";
-      case 2:
-        infoBoxText = "Incredible!";
-      case 3:
-        infoBoxText = "Amazing!";
-      case 4:
-        infoBoxText = "Very nice!";
-      case 5:
-        infoBoxText = "Well done!";
-      case 6:
-        infoBoxText = "Phew!";
+    if (holiday == Holiday.valentines) {
+      infoBoxText = "Lovely!";
+    } else if (holiday == Holiday.halloween) {
+      infoBoxText = "Spooky!";
+    } else {
+      switch (todaysGuesses.length) {
+        case 1:
+          infoBoxText = "Nostradamus!";
+        case 2:
+          infoBoxText = "Incredible!";
+        case 3:
+          infoBoxText = "Amazing!";
+        case 4:
+          infoBoxText = "Very nice!";
+        case 5:
+          infoBoxText = "Well done!";
+        case 6:
+          infoBoxText = "Phew!";
+      }
     }
 
     UserData.gameResult = GameResult.won;
     UserData.latestCompletedPuzzle = puzzleNum;
 
-    UserData.currentStreak = potentialNextStreak;
+    UserData.currentStreak = UserData.potentialNextStreak;
 
     if (UserData.currentStreak > UserData.longestStreak) {
       UserData.longestStreak = UserData.currentStreak;

@@ -4,6 +4,7 @@ import "package:shared_preferences/shared_preferences.dart";
 class UserData {
   static late int? latestPuzzlePlayed;
   static late int? latestCompletedPuzzle;
+  static late int potentialNextStreak;
   static late bool darkMode;
   static late bool hardMode;
   static late List<String> todaysGuesses;
@@ -11,7 +12,6 @@ class UserData {
   static late int currentStreak;
   static late int longestStreak;
   static late GameResult gameResult;
-  static late double keySize;
 
   static Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -23,8 +23,8 @@ class UserData {
     gameHistory = prefs.getStringList("gameHistory") ?? [];
     final resultName = prefs.getString("gameResult");
     currentStreak = prefs.getInt("currentStreak") ?? 0;
+    potentialNextStreak = prefs.getInt("potentialNextStreak") ?? 1;
     longestStreak = prefs.getInt("longestStreak") ?? 0;
-    keySize = prefs.getDouble("keySize") ?? 42.0;
     gameResult = GameResult.values.firstWhere(
       (e) => e.name == resultName,
       orElse: () => GameResult.playing,
@@ -33,7 +33,9 @@ class UserData {
 
   static Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("latestPuzzlePlayed", latestPuzzlePlayed!);
+    if (latestPuzzlePlayed != null) {
+      await prefs.setInt("latestPuzzlePlayed", latestPuzzlePlayed!);
+    }
     if (latestCompletedPuzzle != null) {
       await prefs.setInt("latestCompletedPuzzle", latestCompletedPuzzle!);
     }
@@ -42,8 +44,8 @@ class UserData {
     await prefs.setStringList("todaysGuesses", todaysGuesses);
     await prefs.setStringList("gameHistory", gameHistory);
     await prefs.setInt("currentStreak", currentStreak);
+    await prefs.setInt("potentialNextStreak", potentialNextStreak);
     await prefs.setInt("longestStreak", longestStreak);
     await prefs.setString("gameResult", gameResult.name);
-    await prefs.setDouble("keySize", keySize);
   }
 }

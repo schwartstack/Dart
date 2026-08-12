@@ -15,6 +15,19 @@
 
 # Change Log
 
+## Version 1.3.0 (2026-08-12)
+
+- Add holiday themes for halloween and valentine's day
+- fix uninitialized lastPuzzlePlayed bug
+
+## Version 1.2.7 (2026-08-10)
+
+- Fix lost streak bug
+
+## Version 1.2.6 (2026-08-10)
+
+- fix window size in ios chrome
+
 ## Version 1.2.5 (2026-08-08)
 
 - update info popup

@@ -25,17 +25,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color gameColor;
+    switch (gameState.holiday) {
+      case Holiday.valentines:
+        gameColor = Colors.pink;
+      case Holiday.halloween:
+        gameColor = Colors.deepOrange;
+      case null:
+        gameColor = Colors.teal;
+    }
     return AnimatedBuilder(
       animation: gameState,
       builder: (context, child) {
         return MaterialApp(
           title: title,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+            colorScheme: ColorScheme.fromSeed(seedColor: gameColor),
           ),
           darkTheme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.teal,
+              seedColor: gameColor,
               brightness: Brightness.dark,
             ),
           ),
@@ -115,7 +124,10 @@ class HomePage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            TitleBox(height: titleHeight),
+                            TitleBox(
+                              height: titleHeight,
+                              holiday: gameState.holiday,
+                            ),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Row(
