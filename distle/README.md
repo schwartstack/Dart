@@ -15,6 +15,14 @@
 
 # Change Log
 
+## Version 2.1.1 (2026-08-13)
+
+- Remove commented out code
+
+## Version 2.1.0 (2026-08-13)
+
+- Remove link from bottom of share text
+
 ## Version 2.0.0 (2026-08-12)
 
 - Change image share to emoji share
