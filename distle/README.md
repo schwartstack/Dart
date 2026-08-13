@@ -15,6 +15,10 @@
 
 # Change Log
 
+## Version 2.0.0 (2026-08-12)
+
+- Change image share to emoji share
+
 ## Version 1.3.0 (2026-08-12)
 
 - Add holiday themes for halloween and valentine's day
