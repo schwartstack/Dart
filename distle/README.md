@@ -1,11 +1,8 @@
 # TODO
 
 - hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
-- user data
-    - guesses per win
 - stats button
     - graphs
-        - guesses per win
         - distance per guess
 - guess animation
 - win animation
@@ -14,6 +11,10 @@
 - fix bug when returning to site after winning/losing it resets _dialogShown so changing a setting causes the results popup to open
 
 # Change Log
+
+## Version 2.2.0 (2026-08-13)
+
+- Add bar chart
 
 ## Version 2.1.1 (2026-08-13)
 

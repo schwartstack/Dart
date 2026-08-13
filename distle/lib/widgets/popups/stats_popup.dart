@@ -1,8 +1,9 @@
-import 'package:distle/config/user_data.dart';
 import 'package:flutter/material.dart';
-
-import 'package:distle/game_state.dart';
 import 'package:flutter/services.dart';
+
+import 'package:distle/config/user_data.dart';
+import 'package:distle/game_state.dart';
+import 'package:distle/widgets/charts/bar_chart.dart';
 
 class StatsPopup extends StatefulWidget {
   final GameState gameState;
@@ -60,6 +61,8 @@ class _StatsPopupState extends State<StatsPopup> {
               "Current streak: ${widget.gameState.gameResult == GameResult.playing ? UserData.potentialNextStreak - 1 : widget.gameState.currentStreak}",
             ),
             Text("Longest streak: ${widget.gameState.longestStreak}"),
+            SizedBox(height: 20),
+            BarChart(),
           ],
         ),
       ),

@@ -20,11 +20,6 @@ class ShareButton extends StatelessWidget {
   Future<void> _share() async {
     final bool won = guesses.last == answer;
 
-    // final bytes = await ShareImageGenerator().build(
-    //   answer: answer,
-    //   guesses: guesses,
-    // );
-
     final emojiString = await ShareEmojiGenerator().build(
       answer: answer,
       guesses: guesses,

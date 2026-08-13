@@ -1,5 +1,7 @@
-import 'package:distle/widgets/buttons/share_button.dart';
 import 'package:flutter/material.dart';
+
+import 'package:distle/widgets/buttons/share_button.dart';
+import 'package:distle/widgets/charts/bar_chart.dart';
 
 class WinPopup extends StatelessWidget {
   final int puzzleNum;
@@ -36,6 +38,8 @@ class WinPopup extends StatelessWidget {
             SizedBox(height: 20),
             Text("$streak day streak!"),
           ],
+          SizedBox(height: 20),
+          BarChart(),
         ],
       ),
       actions: [

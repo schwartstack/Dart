@@ -1,5 +1,6 @@
-import 'package:distle/widgets/buttons/share_button.dart';
 import 'package:flutter/material.dart';
+
+import 'package:distle/widgets/buttons/share_button.dart';
 
 class LossPopup extends StatelessWidget {
   final int puzzleNum;
@@ -24,7 +25,10 @@ class LossPopup extends StatelessWidget {
           ),
         ],
       ),
-      content: Text("The secret word was \"${answer.toLowerCase()}.\""),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [Text("The secret word was \"${answer.toLowerCase()}.\"")],
+      ),
       actions: [
         ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),
       ],
