@@ -139,7 +139,7 @@ class LetterButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         fixedSize: Size(keyWidth, keyWidth),
         padding: EdgeInsets.zero,
-        minimumSize: Size.zero, // Removes default minimum size constraints
+        minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -172,7 +172,7 @@ class EnterButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         fixedSize: Size(keyWidth, keyWidth),
         padding: EdgeInsets.zero,
-        minimumSize: Size.zero, // Removes default minimum size constraints
+        minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -202,7 +202,7 @@ class DeleteButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         fixedSize: Size(keyWidth, keyWidth),
         padding: EdgeInsets.zero,
-        minimumSize: Size.zero, // Removes default minimum size constraints
+        minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

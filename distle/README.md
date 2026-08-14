@@ -9,6 +9,10 @@
 
 # Change Log
 
+## Version 3.0.0 (2026-08-14)
+
+- Change color scheme to more closely match the emojis
+
 ## Version 2.3.0 (2026-08-14)
 
 - Add line chart

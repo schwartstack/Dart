@@ -47,20 +47,16 @@ class ShareEmojiGenerator {
   String _getEmoji(String guess, String answer) {
     final double distance = calculateDistance(guess, answer)!;
     final double distanceProp = distance / maxDistance;
-    String emoji;
-    switch (distanceProp) {
-      case 0:
-        emoji = "🟢";
-      case < .2:
-        emoji = "🟩";
-      case < .5:
-        emoji = "🟨";
-      case < .8:
-        emoji = "🟧";
-      default:
-        emoji = "🟥";
+    if (distanceProp == 0) {
+      return "🟢";
+    } else if (distanceProp < colorBreaks[0]) {
+      return "🟩";
+    } else if (distanceProp < (colorBreaks[0] + colorBreaks[1]) / 2) {
+      return "🟨";
+    } else if (distanceProp < colorBreaks[1]) {
+      return "🟧";
     }
-    return emoji;
+    return "🟥";
   }
 
   Future<String> build({

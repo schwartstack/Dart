@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:distle/config/constants.dart';
+import 'package:distle/helpers.dart';
 import 'package:distle/widgets/scrollable_widget.dart';
 
 class HelpPopup extends StatefulWidget {
@@ -58,38 +58,39 @@ class _HelpPopupState extends State<HelpPopup> {
             "When you guess a word, each letter gets a color representing how far away that letter is from the target letter on a standard U.S. keyboard. ",
           ),
           const SizedBox(height: 40),
-          Text.rich(
-            TextSpan(
-              children: [
-                const TextSpan(
-                  text: "Green",
-                  style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: green,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (int i = 0; i < 1000; i++) ...[
+                ColoredBox(
+                  color: getColorFromProp(i / 1000),
+                  child: SizedBox(width: 370 / 1000, height: 20),
                 ),
-                const TextSpan(text: " means close.\n\n"),
-                const TextSpan(
-                  text: "Red",
-                  style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const TextSpan(text: " means far away.\n\n"),
-                TextSpan(
-                  text: "Brownish",
-                  style: TextStyle(
-                    color: Colors.white,
-                    backgroundColor: Color.lerp(green, red, .5),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const TextSpan(text: " means somewhere inbetween."),
               ],
-            ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (int i = 0; i <= 9; i++) ...[
+                Text("|", style: TextStyle(fontSize: 8)),
+              ],
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (int i = 0; i <= 9; i++) ...[
+                Text("$i", style: TextStyle(fontSize: 12)),
+              ],
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("distance (in key widths)", style: TextStyle(fontSize: 12)),
+            ],
           ),
         ],
       ),
@@ -113,7 +114,7 @@ class _HelpPopupState extends State<HelpPopup> {
               ),
             ],
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -126,7 +127,7 @@ class _HelpPopupState extends State<HelpPopup> {
               ),
             ],
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -238,7 +239,7 @@ class _HelpPopupState extends State<HelpPopup> {
         ),
         content: SizedBox(
           width: 400,
-          height: 300,
+          height: 250,
           child: PageView(
             controller: _controller,
             physics: const NeverScrollableScrollPhysics(),

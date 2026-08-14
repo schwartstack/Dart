@@ -30,6 +30,27 @@ double? calculateAngle(String? letter1, String letter2) {
   return atan2(dy, dx);
 }
 
+Color getColorFromProp(double prop) {
+  print(colorBreaks);
+  Color fromColor;
+  Color toColor;
+  double lerpValue;
+  if (prop < colorBreaks[0]) {
+    fromColor = green;
+    toColor = yellow;
+    lerpValue = prop / colorBreaks[0];
+  } else if (prop < colorBreaks[1]) {
+    fromColor = yellow;
+    toColor = orange;
+    lerpValue = (prop - colorBreaks[0]) / (colorBreaks[1] - colorBreaks[0]);
+  } else {
+    fromColor = orange;
+    toColor = red;
+    lerpValue = (prop - colorBreaks[1]) / (1 - colorBreaks[1]);
+  }
+  return Color.lerp(fromColor, toColor, lerpValue)!;
+}
+
 Color getBackgroundColor(
   String? letter1,
   String letter2, {
@@ -44,5 +65,5 @@ Color getBackgroundColor(
   }
   double distance = calculateDistance(letter1, letter2)!;
   double distanceProp = distance / maxDistance;
-  return Color.lerp(green, red, distanceProp)!;
+  return getColorFromProp(distanceProp);
 }
