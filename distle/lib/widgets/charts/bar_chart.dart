@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:distle/config/user_data.dart';
 
 class BarChart extends StatelessWidget {
+  const BarChart({super.key});
+
   Map<int, int> _getGameHistoryMap() {
     final Map<int, int> gameHistoryMap = {};
     for (String gameResult in UserData.gameHistory) {
@@ -56,7 +58,7 @@ class BarChart extends StatelessWidget {
                         builder: (context, constraints) {
                           final barWidth = maxCount == 0
                               ? 0.0
-                              : constraints.maxWidth * count / maxCount;
+                              : constraints.maxWidth * count / maxCount * .94;
 
                           return Align(
                             alignment: Alignment.centerLeft,

@@ -1,3 +1,4 @@
+import 'package:distle/widgets/charts/line_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distle/widgets/buttons/share_button.dart';
@@ -27,7 +28,11 @@ class LossPopup extends StatelessWidget {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [Text("The secret word was \"${answer.toLowerCase()}.\"")],
+        children: [
+          Text("The secret word was \"${answer.toLowerCase()}.\""),
+          SizedBox(height: 20),
+          LineChart(guesses: guesses, answer: answer),
+        ],
       ),
       actions: [
         ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),

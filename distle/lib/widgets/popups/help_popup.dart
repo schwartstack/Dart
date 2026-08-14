@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:distle/config/constants.dart';
+import 'package:distle/widgets/scrollable_widget.dart';
 
 class HelpPopup extends StatefulWidget {
   const HelpPopup({super.key});
@@ -47,7 +48,7 @@ class _HelpPopupState extends State<HelpPopup> {
   }
 
   Widget _page1() {
-    return SingleChildScrollView(
+    return ScrollableWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -96,7 +97,7 @@ class _HelpPopupState extends State<HelpPopup> {
   }
 
   Widget _page2() {
-    return const SingleChildScrollView(
+    return const ScrollableWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -144,7 +145,7 @@ class _HelpPopupState extends State<HelpPopup> {
   }
 
   Widget _page3() {
-    return const SingleChildScrollView(
+    return const ScrollableWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -152,23 +153,40 @@ class _HelpPopupState extends State<HelpPopup> {
           SizedBox(height: 20),
           Image(image: AssetImage('assets/images/guess.png')),
           SizedBox(height: 20),
-          Text(
-            "After guessing \"LAUGH\", we know for sure that in the target word, letter #2 is \"A\" and letter #5 is \"H\".",
+          SizedBox(
+            width: 380,
+            child: Text(
+              "After guessing \"LAUGH\", we know for sure that in the target word, letter #2 is \"A\" and letter #5 is \"H\".",
+            ),
           ),
           SizedBox(height: 20),
-          Text(
-            "We also know that letter #1 is pretty far away from the \"L\" key and in the top row of the keyboard (because the arrow is pointing to the left and slightly up).",
+          SizedBox(
+            width: 380,
+            child: Text(
+              "We also know that letter #1 is pretty far away from the \"L\" key and in the top row of the keyboard (because the arrow is pointing to the left and slightly up).",
+            ),
           ),
           SizedBox(height: 20),
-          Text(
-            "Letter #3 is sort of close-ish and directly to the left of the \"U\" key.",
+          SizedBox(
+            width: 380,
+            child: Text(
+              "Letter #3 is sort of close-ish and directly to the left of the \"U\" key.",
+            ),
           ),
           SizedBox(height: 20),
-          Text(
-            "Letter #4 is very close and is up and to the left of the \"G\" key.",
+          SizedBox(
+            width: 380,
+            child: Text(
+              "Letter #4 is very close and is up and to the left of the \"G\" key.",
+            ),
           ),
           SizedBox(height: 20),
-          Text("Given all of these clues, can you guess the secret word?"),
+          SizedBox(
+            width: 380,
+            child: Text(
+              "Given all of these clues, can you guess the secret word?",
+            ),
+          ),
         ],
       ),
     );

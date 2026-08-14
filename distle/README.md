@@ -1,9 +1,6 @@
 # TODO
 
 - hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
-- stats button
-    - graphs
-        - distance per guess
 - guess animation
 - win animation
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
@@ -11,6 +8,10 @@
 - fix bug when returning to site after winning/losing it resets _dialogShown so changing a setting causes the results popup to open
 
 # Change Log
+
+## Version 2.3.0 (2026-08-14)
+
+- Add line chart
 
 ## Version 2.2.1 (2026-08-14)
 
