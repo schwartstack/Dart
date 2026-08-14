@@ -12,6 +12,11 @@
 
 # Change Log
 
+## Version 2.2.1 (2026-08-14)
+
+- Adjust font size for bar chart
+- Fix empty bar chart bug
+
 ## Version 2.2.0 (2026-08-13)
 
 - Add bar chart

@@ -15,6 +15,9 @@ class BarChart extends StatelessWidget {
   }
 
   int _getMostCommonResultFrequency(Map<int, int> gameHistoryMap) {
+    if (gameHistoryMap.isEmpty) {
+      return 1;
+    }
     MapEntry<int, int> mostCommonEntry = gameHistoryMap.entries.reduce(
       (a, b) => a.value > b.value ? a : b,
     );
@@ -41,7 +44,13 @@ class BarChart extends StatelessWidget {
                 height: 24,
                 child: Row(
                   children: [
-                    SizedBox(width: 24, child: Text('$guessNumber')),
+                    SizedBox(
+                      width: 24,
+                      child: Text(
+                        "$guessNumber",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
                     Expanded(
                       child: LayoutBuilder(
                         builder: (context, constraints) {
@@ -64,9 +73,16 @@ class BarChart extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(3),
                                 ),
                                 child: Text(
-                                  '$count',
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  "${count > 0 ? count : ''}",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: UserData.darkMode
+                                        ? Theme.of(
+                                            context,
+                                          ).colorScheme.onPrimary
+                                        : Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondary,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
