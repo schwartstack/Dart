@@ -9,6 +9,11 @@
 
 # Change Log
 
+## Version 3.1.0 (2026-08-15)
+
+- Make y axis integers on line chart
+- Add more holidays
+
 ## Version 3.0.0 (2026-08-14)
 
 - Change color scheme to more closely match the emojis

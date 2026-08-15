@@ -10,7 +10,7 @@ import 'package:distle/helpers.dart';
 
 enum GameResult { playing, won, lost }
 
-enum Holiday { halloween, valentines }
+enum Holiday { newYear, brittany, valentines, halloween, thanksgiving, xmas }
 
 class GameState extends ChangeNotifier {
   late GameResult gameResult = UserData.gameResult;
@@ -63,14 +63,23 @@ class GameState extends ChangeNotifier {
 
   Holiday? _getHoliday() {
     final TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
-    if (dateInPacificTime.month == 2 && dateInPacificTime.day == 14) {
-      holiday = Holiday.valentines;
+    if (dateInPacificTime.month == 1 && dateInPacificTime.day == 1) {
+      return Holiday.newYear;
+    } else if (dateInPacificTime.month == 1 && dateInPacificTime.day == 21) {
+      return Holiday.brittany;
+    } else if (dateInPacificTime.month == 2 && dateInPacificTime.day == 14) {
+      return Holiday.valentines;
     } else if (dateInPacificTime.month == 10 && dateInPacificTime.day == 31) {
-      holiday = Holiday.halloween;
-    } else {
-      holiday = null;
+      return Holiday.halloween;
+    } else if (dateInPacificTime.month == 11 &&
+        dateInPacificTime.weekday == 4 &&
+        dateInPacificTime.day >= 22 &&
+        dateInPacificTime.day <= 28) {
+      return Holiday.thanksgiving;
+    } else if (dateInPacificTime.month == 12 && dateInPacificTime.day == 25) {
+      return Holiday.xmas;
     }
-    return holiday;
+    return null;
   }
 
   String _generateAnswer(int puzzleNum) {
@@ -148,10 +157,16 @@ class GameState extends ChangeNotifier {
   }
 
   void handleWin() {
-    if (holiday == Holiday.valentines) {
+    if (holiday == Holiday.newYear) {
+      infoBoxText = "Happy New Year!";
+    } else if (holiday == Holiday.valentines) {
       infoBoxText = "Lovely!";
     } else if (holiday == Holiday.halloween) {
       infoBoxText = "Spooky!";
+    } else if (holiday == Holiday.thanksgiving) {
+      infoBoxText = "Gobble Gobble!";
+    } else if (holiday == Holiday.xmas) {
+      infoBoxText = "Jolly!";
     } else {
       switch (todaysGuesses.length) {
         case 1:

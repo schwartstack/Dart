@@ -41,8 +41,10 @@ class WinPopup extends StatelessWidget {
               SizedBox(height: 20),
               Text("$streak day streak!"),
             ],
-            SizedBox(height: 20),
-            LineChart(guesses: guesses, answer: answer),
+            if (guesses.length > 1) ...[
+              SizedBox(height: 20),
+              LineChart(guesses: guesses, answer: answer),
+            ],
             SizedBox(height: 20),
             BarChart(),
           ],

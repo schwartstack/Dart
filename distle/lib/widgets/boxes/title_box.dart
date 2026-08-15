@@ -17,12 +17,24 @@ class TitleBox extends StatelessWidget {
     String leftEmojis;
     String rightEmojis;
     switch (holiday) {
+      case Holiday.newYear:
+        leftEmojis = "🎆🎇";
+        rightEmojis = "🎇🎆";
+      case Holiday.brittany:
+        leftEmojis = "🎁🎂";
+        rightEmojis = "🎂🎁";
       case Holiday.valentines:
         leftEmojis = "💖🌹";
         rightEmojis = "🌹💖";
       case Holiday.halloween:
         leftEmojis = "🕸️🕷️🎃";
         rightEmojis = "🎃🕷️🕸️";
+      case Holiday.thanksgiving:
+        leftEmojis = "🥧🦃";
+        rightEmojis = "🦃🥧";
+      case Holiday.xmas:
+        leftEmojis = "🎅🎄";
+        rightEmojis = "🎄🎅";
       case null:
         leftEmojis = "";
         rightEmojis = "";

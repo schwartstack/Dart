@@ -48,14 +48,12 @@ class LineChartPainter extends CustomPainter {
     const double bottomPadding = 50;
     final double chartWidth = size.width - leftPadding - rightPadding;
     final double chartHeight = size.height - topPadding - bottomPadding;
-    double minY = values.reduce(min);
-    double maxY = values.reduce(max);
 
-    if (minY == maxY) {
-      minY -= 1;
-      maxY += 1;
-    }
-
+    double minY = 0;
+    double dataMaxY = values.reduce(max);
+    final double roughTickSpacing = dataMaxY / 5;
+    final int tickSpacing = max(1, roughTickSpacing.ceil());
+    final int maxY = (dataMaxY / tickSpacing).ceil() * tickSpacing;
     final double yRange = maxY - minY;
 
     final axisPaint = Paint()
@@ -121,17 +119,17 @@ class LineChartPainter extends CustomPainter {
       ),
     );
 
-    const int numberOfYTicks = 5;
-
-    for (int i = 0; i <= numberOfYTicks; i++) {
-      final double fraction = i / numberOfYTicks;
-      final double value = minY + fraction * yRange;
+    for (int value = minY.toInt(); value <= maxY; value += tickSpacing) {
+      final double fraction = value / yRange;
       final double y = topPadding + (1 - fraction) * chartHeight;
+
       canvas.drawLine(Offset(yAxisX - 5, y), Offset(yAxisX, y), axisPaint);
+
       final textPainter = TextPainter(
-        text: TextSpan(text: value.toStringAsFixed(1), style: textStyle),
+        text: TextSpan(text: '$value', style: textStyle),
         textDirection: TextDirection.ltr,
       )..layout();
+
       textPainter.paint(
         canvas,
         Offset(yAxisX - textPainter.width - 8, y - textPainter.height / 2),

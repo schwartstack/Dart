@@ -27,10 +27,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Color gameColor;
     switch (gameState.holiday) {
+      case Holiday.newYear:
+        gameColor = Colors.blue;
+      case Holiday.brittany:
+        gameColor = Colors.yellow;
       case Holiday.valentines:
         gameColor = Colors.pink;
       case Holiday.halloween:
         gameColor = Colors.deepOrange;
+      case Holiday.thanksgiving:
+        gameColor = Colors.orange;
+      case Holiday.xmas:
+        gameColor = Colors.green;
       case null:
         gameColor = Colors.teal;
     }
