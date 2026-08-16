@@ -5,9 +5,12 @@
 - win animation
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
-- fix bug when returning to site after winning/losing it resets _dialogShown so changing a setting causes the results popup to open
 
 # Change Log
+
+## Version 3.1.1 (2026-08-16)
+
+- Adjust color breaks and emoki thresholds
 
 ## Version 3.1.0 (2026-08-15)
 

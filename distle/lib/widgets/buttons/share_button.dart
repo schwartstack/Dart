@@ -49,9 +49,10 @@ class ShareEmojiGenerator {
     final double distanceProp = distance / maxDistance;
     if (distanceProp == 0) {
       return "🟢";
-    } else if (distanceProp < colorBreaks[0]) {
+    } else if (distanceProp < (colorBreaks[0] * 2 / 3)) {
       return "🟩";
-    } else if (distanceProp < (colorBreaks[0] + colorBreaks[1]) / 2) {
+    } else if (distanceProp <
+        colorBreaks[0] + (colorBreaks[1] - colorBreaks[0]) * 1 / 3) {
       return "🟨";
     } else if (distanceProp < colorBreaks[1]) {
       return "🟧";
