@@ -29,7 +29,7 @@ class GameState extends ChangeNotifier {
 
   GameState() {
     puzzleNum = _generatePuzzleNum();
-    answer = _generateAnswer(puzzleNum);
+    answer = "EARTH"; //_generateAnswer(puzzleNum);
     holiday = _getHoliday();
 
     final lastPlayed = UserData.latestPuzzlePlayed;

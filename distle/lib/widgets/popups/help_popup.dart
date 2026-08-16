@@ -55,7 +55,7 @@ class _HelpPopupState extends State<HelpPopup> {
           const Text("Distle is a daily word guessing game"),
           const SizedBox(height: 40),
           const Text(
-            "When you guess a word, each letter gets a color representing how far away that letter is from the target letter on a standard U.S. keyboard. ",
+            "When you guess a word, each letter gets a color representing how far away that letter is from the target letter on a standard QWERTY keyboard. ",
           ),
           const SizedBox(height: 40),
           Row(
@@ -122,7 +122,7 @@ class _HelpPopupState extends State<HelpPopup> {
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  "If a letter in your guessed word is not correct, it will have an arrow pointing in the direction of the correct letter (on a standard U.S. keyboard).",
+                  "If a letter in your guessed word is not correct, it will have an arrow pointing in the direction of the correct letter (on a standard QWERTY keyboard).",
                 ),
               ),
             ],

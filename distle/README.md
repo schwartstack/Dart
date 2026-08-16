@@ -8,6 +8,10 @@
 
 # Change Log
 
+## Version 3.1.2 (2026-08-16)
+
+- Update images in the help popup
+
 ## Version 3.1.1 (2026-08-16)
 
 - Adjust color breaks and emoki thresholds
