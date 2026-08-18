@@ -1,12 +1,24 @@
 # TODO
 
-- hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
 - guess animation
 - win animation
 - replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
 
 # Change Log
+
+## Version 3.2.0 (2026-08-18)
+
+- Hard mode can be disabled mid game, but when enabled mid game will only kick in to effect in the next game
+- Winning in 2 in easy mode suggests opening settings
+
+## Version 3.1.4 (2026-08-16)
+
+- Fix help bage bug
+
+## Version 3.1.3 (2026-08-16)
+
+- Bug fix generateAnswer()
 
 ## Version 3.1.2 (2026-08-16)
 

@@ -7,6 +7,7 @@ class UserData {
   static late int potentialNextStreak;
   static late bool darkMode;
   static late bool hardMode;
+  static late bool hardModeNextGame;
   static late List<String> todaysGuesses;
   static late List<String> gameHistory;
   static late int currentStreak;
@@ -19,6 +20,7 @@ class UserData {
     latestCompletedPuzzle = prefs.getInt("latestCompletedPuzzle");
     darkMode = prefs.getBool("darkMode") ?? false;
     hardMode = prefs.getBool("hardMode") ?? false;
+    hardModeNextGame = prefs.getBool("hardModeNextGame") ?? false;
     todaysGuesses = prefs.getStringList("todaysGuesses") ?? [];
     gameHistory = prefs.getStringList("gameHistory") ?? [];
     final resultName = prefs.getString("gameResult");
@@ -41,6 +43,7 @@ class UserData {
     }
     await prefs.setBool("darkMode", darkMode);
     await prefs.setBool("hardMode", hardMode);
+    await prefs.setBool("hardModeNextGame", hardModeNextGame);
     await prefs.setStringList("todaysGuesses", todaysGuesses);
     await prefs.setStringList("gameHistory", gameHistory);
     await prefs.setInt("currentStreak", currentStreak);

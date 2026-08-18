@@ -6,24 +6,12 @@ import 'package:distle/widgets/popups/win_popup.dart';
 
 class ResultsButton extends StatelessWidget {
   final double size;
-  final GameResult gameResult;
-  final int puzzleNum;
-  final String answer;
-  final List<String> guesses;
-  final int streak;
-  const ResultsButton({
-    super.key,
-    required this.size,
-    required this.gameResult,
-    required this.puzzleNum,
-    required this.answer,
-    required this.guesses,
-    required this.streak,
-  });
+  final GameState gameState;
+  const ResultsButton({super.key, required this.size, required this.gameState});
 
   @override
   Widget build(BuildContext context) {
-    if (gameResult != GameResult.playing) {
+    if (gameState.gameResult != GameResult.playing) {
       return Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,31 +23,30 @@ class ResultsButton extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () => guesses.last == answer
+                onPressed: () =>
+                    gameState.todaysGuesses.last == gameState.answer
                     ? showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return WinPopup(
-                            puzzleNum: puzzleNum,
-                            answer: answer,
-                            guesses: guesses,
-                            streak: streak,
-                          );
+                          return WinPopup(gameState: gameState);
                         },
                       )
                     : showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return LossPopup(
-                            puzzleNum: puzzleNum,
-                            answer: answer,
-                            guesses: guesses,
+                            puzzleNum: gameState.puzzleNum,
+                            answer: gameState.answer,
+                            guesses: gameState.todaysGuesses,
                           );
                         },
                       ),
                 child: Text(
                   "See results",
-                  style: TextStyle(fontSize: size / 2),
+                  style: TextStyle(
+                    fontSize: size / 2,
+                    color: gameState.darkMode ? Colors.black : Colors.white,
+                  ),
                 ),
               ),
             ),

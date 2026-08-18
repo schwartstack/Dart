@@ -163,11 +163,7 @@ class HomePage extends StatelessWidget {
                       ),
                       ResultsButton(
                         size: resultsButtonHeight,
-                        gameResult: gameState.gameResult,
-                        puzzleNum: gameState.puzzleNum,
-                        answer: gameState.answer,
-                        guesses: gameState.todaysGuesses,
-                        streak: gameState.currentStreak,
+                        gameState: gameState,
                       ),
                       TimerBox(
                         size: timerBoxHeight,
@@ -199,7 +195,7 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  bool _dialogShown = false;
+  late bool _dialogShown = widget.gameState.gameResult != GameResult.playing;
 
   @override
   void initState() {
@@ -229,12 +225,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
       showDialog(
         context: context,
-        builder: (_) => WinPopup(
-          puzzleNum: widget.gameState.puzzleNum,
-          answer: widget.gameState.answer,
-          guesses: widget.gameState.todaysGuesses,
-          streak: widget.gameState.currentStreak,
-        ),
+        builder: (_) => WinPopup(gameState: widget.gameState),
       );
     }
 

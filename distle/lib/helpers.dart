@@ -31,7 +31,6 @@ double? calculateAngle(String? letter1, String letter2) {
 }
 
 Color getColorFromProp(double prop) {
-  print(colorBreaks);
   Color fromColor;
   Color toColor;
   double lerpValue;

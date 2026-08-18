@@ -1,19 +1,11 @@
+import 'package:distle/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SettingsPopup extends StatefulWidget {
-  final bool darkMode;
-  final bool hardMode;
-  final void Function(bool value) onDarkModeSwitched;
-  final void Function(bool value) onHardModeSwitched;
+  final GameState gameState;
 
-  const SettingsPopup({
-    super.key,
-    required this.darkMode,
-    required this.hardMode,
-    required this.onDarkModeSwitched,
-    required this.onHardModeSwitched,
-  });
+  const SettingsPopup({super.key, required this.gameState});
 
   @override
   State<SettingsPopup> createState() => _SettingsPopupState();
@@ -56,20 +48,41 @@ class _SettingsPopupState extends State<SettingsPopup> {
             ),
           ],
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SwitchListTile.adaptive(
-              title: const Text("Dark mode"),
-              value: widget.darkMode,
-              onChanged: widget.onDarkModeSwitched,
-            ),
-            SwitchListTile.adaptive(
-              title: const Text("Hard mode"),
-              value: widget.hardMode,
-              onChanged: widget.onHardModeSwitched,
-            ),
-          ],
+        content: SizedBox(
+          width: 350,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SwitchListTile.adaptive(
+                title: const Text("Dark mode"),
+                value: widget.gameState.darkMode,
+                onChanged: widget.gameState.setDarkMode,
+              ),
+              SwitchListTile.adaptive(
+                title: const Text("Hard mode"),
+                value: widget.gameState.hardMode,
+                onChanged: widget.gameState.setHardMode,
+              ),
+
+              if (widget.gameState.hardModeNextGame &&
+                  !widget.gameState.hardMode) ...[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "The next game you play will start in hard mode.",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Hard mode can be turned off mid-game.",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

@@ -65,12 +65,13 @@ class _HelpPopupState extends State<HelpPopup> {
               for (int i = 0; i < 1000; i++) ...[
                 ColoredBox(
                   color: getColorFromProp(i / 1000),
-                  child: SizedBox(width: 370 / 1000, height: 20),
+                  child: SizedBox(width: 300 / 1000, height: 20),
                 ),
               ],
             ],
           ),
           Row(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (int i = 0; i <= 9; i++) ...[
@@ -79,6 +80,7 @@ class _HelpPopupState extends State<HelpPopup> {
             ],
           ),
           Row(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (int i = 0; i <= 9; i++) ...[
@@ -238,7 +240,7 @@ class _HelpPopupState extends State<HelpPopup> {
           ],
         ),
         content: SizedBox(
-          width: 400,
+          width: 450,
           height: 250,
           child: PageView(
             controller: _controller,

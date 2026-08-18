@@ -16,6 +16,7 @@ class GameState extends ChangeNotifier {
   late GameResult gameResult = UserData.gameResult;
   late bool darkMode = UserData.darkMode;
   late bool hardMode = UserData.hardMode;
+  late bool hardModeNextGame = UserData.hardModeNextGame;
   late List<String> gameHistory = UserData.gameHistory;
   late int currentStreak = UserData.currentStreak;
   late int longestStreak = UserData.longestStreak;
@@ -28,8 +29,9 @@ class GameState extends ChangeNotifier {
   String? infoBoxText;
 
   GameState() {
+    initializeTimeZones();
     puzzleNum = _generatePuzzleNum();
-    answer = "EARTH"; //_generateAnswer(puzzleNum);
+    answer = _generateAnswer(puzzleNum);
     holiday = _getHoliday();
 
     final lastPlayed = UserData.latestPuzzlePlayed;
@@ -41,7 +43,11 @@ class GameState extends ChangeNotifier {
       } else {
         UserData.potentialNextStreak = 1;
       }
+      UserData.hardMode = UserData.hardModeNextGame;
       UserData.save();
+
+      hardMode = hardModeNextGame;
+      notifyListeners();
     }
 
     if (lastPlayed != puzzleNum) {
@@ -55,7 +61,6 @@ class GameState extends ChangeNotifier {
   }
 
   int _generatePuzzleNum() {
-    initializeTimeZones();
     final TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
     final duration = dateInPacificTime.difference(startDate);
     return duration.inDays;
@@ -99,11 +104,21 @@ class GameState extends ChangeNotifier {
   void setHardMode(bool value) {
     if (hardMode == value) return;
 
-    UserData.hardMode = value;
-    UserData.save();
+    if (hardMode || todaysGuesses.isEmpty) {
+      UserData.hardMode = value;
+      UserData.hardModeNextGame = value;
+      UserData.save();
 
-    hardMode = UserData.hardMode;
-    notifyListeners();
+      hardMode = UserData.hardMode;
+      hardModeNextGame = UserData.hardModeNextGame;
+      notifyListeners();
+    } else {
+      UserData.hardModeNextGame = value;
+      UserData.save();
+
+      hardModeNextGame = UserData.hardModeNextGame;
+      notifyListeners();
+    }
   }
 
   void handleKeyPress(String letter) {

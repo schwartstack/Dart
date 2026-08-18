@@ -20,12 +20,7 @@ class SettingsButton extends StatelessWidget {
             return AnimatedBuilder(
               animation: gameState,
               builder: (context, child) {
-                return SettingsPopup(
-                  darkMode: gameState.darkMode,
-                  hardMode: gameState.hardMode,
-                  onDarkModeSwitched: gameState.setDarkMode,
-                  onHardModeSwitched: gameState.setHardMode,
-                );
+                return SettingsPopup(gameState: gameState);
               },
             );
           },
