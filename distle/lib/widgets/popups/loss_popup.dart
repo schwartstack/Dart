@@ -1,18 +1,12 @@
-import 'package:distle/widgets/charts/line_chart.dart';
 import 'package:flutter/material.dart';
 
+import 'package:distle/game_state.dart';
 import 'package:distle/widgets/buttons/share_button.dart';
+import 'package:distle/widgets/charts/line_chart.dart';
 
 class LossPopup extends StatelessWidget {
-  final int puzzleNum;
-  final String answer;
-  final List<String> guesses;
-  const LossPopup({
-    super.key,
-    required this.puzzleNum,
-    required this.answer,
-    required this.guesses,
-  });
+  final GameState gameState;
+  const LossPopup({super.key, required this.gameState});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +23,12 @@ class LossPopup extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("The secret word was \"${answer.toLowerCase()}.\""),
+          Text("The secret word was \"${gameState.answer.toLowerCase()}.\""),
           SizedBox(height: 20),
-          LineChart(guesses: guesses, answer: answer),
+          LineChart(guesses: gameState.todaysGuesses, answer: gameState.answer),
         ],
       ),
-      actions: [
-        ShareButton(puzzleNum: puzzleNum, answer: answer, guesses: guesses),
-      ],
+      actions: [ShareButton(gameState: gameState)],
     );
   }
 }

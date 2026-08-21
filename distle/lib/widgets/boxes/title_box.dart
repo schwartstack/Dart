@@ -1,7 +1,7 @@
+import 'package:distle/config/data.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distle/config/constants.dart';
-import 'package:distle/game_state.dart';
 
 class TitleBox extends StatelessWidget {
   final double height;
@@ -14,31 +14,8 @@ class TitleBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String leftEmojis;
-    String rightEmojis;
-    switch (holiday) {
-      case Holiday.newYear:
-        leftEmojis = "🎆🎇";
-        rightEmojis = "🎇🎆";
-      case Holiday.brittany:
-        leftEmojis = "🎁🎂";
-        rightEmojis = "🎂🎁";
-      case Holiday.valentines:
-        leftEmojis = "💖🌹";
-        rightEmojis = "🌹💖";
-      case Holiday.halloween:
-        leftEmojis = "🕸️🕷️🎃";
-        rightEmojis = "🎃🕷️🕸️";
-      case Holiday.thanksgiving:
-        leftEmojis = "🥧🦃";
-        rightEmojis = "🦃🥧";
-      case Holiday.xmas:
-        leftEmojis = "🎅🎄";
-        rightEmojis = "🎄🎅";
-      case null:
-        leftEmojis = "";
-        rightEmojis = "";
-    }
+    Object leftEmojis = holidayMap[holiday]?["leftEmojis"] ?? "";
+    Object rightEmojis = holidayMap[holiday]?["rightEmojis"] ?? "";
     return Center(
       child: Text(
         "$leftEmojis $title $rightEmojis",

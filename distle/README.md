@@ -2,10 +2,23 @@
 
 - guess animation
 - win animation
-- replace `last == answer` with gamestate = win (replace all passed parameters with gameState?)
 - color blind friendly mode (arrow size?)
+- Delay for a second before the win/loss popup pops up
 
 # Change Log
+
+## Version 3.4.0 (2026-08-21)
+
+- Add more holidays
+
+## Version 3.3.0 (2026-08-19)
+
+- Add Earth Day as a holiday
+- Refactor holidays so all the parameters are in one place
+
+## Version 3.2.1 (2026-08-19)
+
+- Hard mode next game can be canceled
 
 ## Version 3.2.0 (2026-08-18)
 

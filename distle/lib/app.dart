@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:distle/config/data.dart';
 import 'package:flutter/material.dart';
 
 import 'package:distle/config/constants.dart';
@@ -25,30 +26,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color gameColor;
-    switch (gameState.holiday) {
-      case Holiday.newYear:
-        gameColor = Colors.blue;
-      case Holiday.brittany:
-        gameColor = Colors.yellow;
-      case Holiday.valentines:
-        gameColor = Colors.pink;
-      case Holiday.halloween:
-        gameColor = Colors.deepOrange;
-      case Holiday.thanksgiving:
-        gameColor = Colors.orange;
-      case Holiday.xmas:
-        gameColor = Colors.green;
-      case null:
-        gameColor = Colors.teal;
-    }
+    Object gameColor = holidayMap[gameState.holiday]?["color"] ?? Colors.teal;
     return AnimatedBuilder(
       animation: gameState,
       builder: (context, child) {
         return MaterialApp(
           title: title,
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: gameColor),
+            colorScheme: ColorScheme.fromSeed(seedColor: gameColor as Color),
           ),
           darkTheme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
@@ -234,11 +219,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
       showDialog(
         context: context,
-        builder: (_) => LossPopup(
-          puzzleNum: widget.gameState.puzzleNum,
-          answer: widget.gameState.answer,
-          guesses: widget.gameState.todaysGuesses,
-        ),
+        builder: (_) => LossPopup(gameState: widget.gameState),
       );
     }
 

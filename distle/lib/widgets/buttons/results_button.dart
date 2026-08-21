@@ -34,11 +34,7 @@ class ResultsButton extends StatelessWidget {
                     : showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return LossPopup(
-                            puzzleNum: gameState.puzzleNum,
-                            answer: gameState.answer,
-                            guesses: gameState.todaysGuesses,
-                          );
+                          return LossPopup(gameState: gameState);
                         },
                       ),
                 child: Text(

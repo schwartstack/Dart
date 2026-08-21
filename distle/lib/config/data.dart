@@ -1,5 +1,115 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:timezone/timezone.dart';
+
+enum Holiday {
+  newYear,
+  brittany,
+  valentines,
+  stPatricks,
+  earth,
+  cincoDeMayo,
+  juneteenth,
+  halloween,
+  thanksgiving,
+  christmas,
+}
+
+final Map<Holiday, Map<String, Object>> holidayMap = {
+  Holiday.newYear: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 1 && dateInPacificTime.day == 1,
+    "color": Colors.blue,
+    "leftEmojis": "🎆🎇",
+    "rightEmojis": "🎇🎆",
+    "winEmoji": "🥳",
+    "winText": "Happy New Year!",
+  },
+  Holiday.brittany: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 1 && dateInPacificTime.day == 21,
+    "color": Colors.yellow,
+    "leftEmojis": "🎁🎂",
+    "rightEmojis": "🎂🎁",
+  },
+  Holiday.valentines: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 2 && dateInPacificTime.day == 14,
+    "color": Colors.pink,
+    "leftEmojis": "💖🌹",
+    "rightEmojis": "🌹💖",
+    "winEmoji": "😍",
+    "winText": "Lovely!",
+  },
+  Holiday.stPatricks: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 3 && dateInPacificTime.day == 17,
+    "color": Colors.green,
+    "leftEmojis": "🍻🇮🇪",
+    "rightEmojis": "🇮🇪🍻",
+    "winEmoji": "🍀",
+    "winText": "Cheers!",
+  },
+  Holiday.earth: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 4 && dateInPacificTime.day == 22,
+    "color": Colors.lightGreen,
+    "leftEmojis": "🌻♻️",
+    "rightEmojis": "♻️🌻",
+    "winEmoji": "🌎",
+    "winText": "Reduce, Reuse, Recycle!",
+  },
+  Holiday.cincoDeMayo: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 5 && dateInPacificTime.day == 5,
+    "color": Colors.red,
+    "leftEmojis": "💃🇲🇽",
+    "rightEmojis": "🇲🇽🕺",
+    "winEmoji": "🌵",
+    "winText": "Ole!",
+  },
+  Holiday.juneteenth: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 6 && dateInPacificTime.day == 19,
+    "color": Colors.red,
+    "leftEmojis": "✊🏾✊🏿",
+    "rightEmojis": "✊🏿✊🏾",
+    "winEmoji": "💚",
+    "winText": "Nobody's free until everybody's free",
+  },
+  Holiday.halloween: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 10 && dateInPacificTime.day == 31,
+    "color": Colors.deepOrange,
+    "leftEmojis": "🕸️🕷️🎃",
+    "rightEmojis": "🎃🕷️🕸️",
+    "winEmoji": "👻",
+    "winText": "Spooky!",
+  },
+  Holiday.thanksgiving: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 11 &&
+        dateInPacificTime.weekday == 4 &&
+        dateInPacificTime.day >= 22 &&
+        dateInPacificTime.day <= 28,
+    "color": Colors.orange,
+    "leftEmojis": "🥧🦃",
+    "rightEmojis": "🦃🥧",
+    "winEmoji": "🌽",
+    "winText": "Gobble Gobble!",
+  },
+  Holiday.christmas: {
+    "checker": (TZDateTime dateInPacificTime) =>
+        dateInPacificTime.month == 12 && dateInPacificTime.day == 25,
+    "color": Colors.red,
+    "leftEmojis": "🎅🎄",
+    "rightEmojis": "🎄🎅",
+    "winEmoji": "☃️",
+    "winText": "Jolly!",
+  },
+};
+
 const Map<String, Point> locationMap = {
   "Q": Point(1, 3),
   "W": Point(2, 3),

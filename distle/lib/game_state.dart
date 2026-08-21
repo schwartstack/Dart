@@ -10,8 +10,6 @@ import 'package:distle/helpers.dart';
 
 enum GameResult { playing, won, lost }
 
-enum Holiday { newYear, brittany, valentines, halloween, thanksgiving, xmas }
-
 class GameState extends ChangeNotifier {
   late GameResult gameResult = UserData.gameResult;
   late bool darkMode = UserData.darkMode;
@@ -68,22 +66,12 @@ class GameState extends ChangeNotifier {
 
   Holiday? _getHoliday() {
     final TZDateTime dateInPacificTime = TZDateTime.now(pacificTimeLocation);
-    if (dateInPacificTime.month == 1 && dateInPacificTime.day == 1) {
-      return Holiday.newYear;
-    } else if (dateInPacificTime.month == 1 && dateInPacificTime.day == 21) {
-      return Holiday.brittany;
-    } else if (dateInPacificTime.month == 2 && dateInPacificTime.day == 14) {
-      return Holiday.valentines;
-    } else if (dateInPacificTime.month == 10 && dateInPacificTime.day == 31) {
-      return Holiday.halloween;
-    } else if (dateInPacificTime.month == 11 &&
-        dateInPacificTime.weekday == 4 &&
-        dateInPacificTime.day >= 22 &&
-        dateInPacificTime.day <= 28) {
-      return Holiday.thanksgiving;
-    } else if (dateInPacificTime.month == 12 && dateInPacificTime.day == 25) {
-      return Holiday.xmas;
+    for (MapEntry entry in holidayMap.entries) {
+      if (entry.value["checker"](dateInPacificTime)) {
+        return (entry.key);
+      }
     }
+
     return null;
   }
 
@@ -119,6 +107,14 @@ class GameState extends ChangeNotifier {
       hardModeNextGame = UserData.hardModeNextGame;
       notifyListeners();
     }
+  }
+
+  void cancelHardMode() {
+    UserData.hardModeNextGame = false;
+    UserData.save();
+
+    hardModeNextGame = UserData.hardModeNextGame;
+    notifyListeners();
   }
 
   void handleKeyPress(String letter) {
@@ -172,16 +168,9 @@ class GameState extends ChangeNotifier {
   }
 
   void handleWin() {
-    if (holiday == Holiday.newYear) {
-      infoBoxText = "Happy New Year!";
-    } else if (holiday == Holiday.valentines) {
-      infoBoxText = "Lovely!";
-    } else if (holiday == Holiday.halloween) {
-      infoBoxText = "Spooky!";
-    } else if (holiday == Holiday.thanksgiving) {
-      infoBoxText = "Gobble Gobble!";
-    } else if (holiday == Holiday.xmas) {
-      infoBoxText = "Jolly!";
+    Object? holidayMessage = holidayMap[holiday]?["winText"];
+    if (holidayMessage != null) {
+      infoBoxText = holidayMessage as String;
     } else {
       switch (todaysGuesses.length) {
         case 1:

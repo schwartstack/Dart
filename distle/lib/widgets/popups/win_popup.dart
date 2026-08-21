@@ -83,13 +83,7 @@ class WinPopup extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        ShareButton(
-          puzzleNum: gameState.puzzleNum,
-          answer: gameState.answer,
-          guesses: gameState.todaysGuesses,
-        ),
-      ],
+      actions: [ShareButton(gameState: gameState)],
     );
   }
 }

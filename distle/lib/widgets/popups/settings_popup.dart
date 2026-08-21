@@ -69,9 +69,18 @@ class _SettingsPopupState extends State<SettingsPopup> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "The next game you play will start in hard mode.",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "The next game you play\nwill start in hard mode.",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        ElevatedButton(
+                          onPressed: widget.gameState.cancelHardMode,
+                          child: Text("cancel"),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 10),
                     Text(
