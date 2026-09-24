@@ -7,6 +7,10 @@
 
 # Change Log
 
+## Version 3.5.0 (2026-09-24)
+
+- Clean up word lists
+
 ## Version 3.4.0 (2026-08-21)
 
 - Add more holidays
