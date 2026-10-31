@@ -16,10 +16,11 @@ class TitleBox extends StatelessWidget {
   Widget build(BuildContext context) {
     Object leftEmojis = holidayMap[holiday]?["leftEmojis"] ?? "";
     Object rightEmojis = holidayMap[holiday]?["rightEmojis"] ?? "";
+    double scalar = leftEmojis == "" ? 3 / 4 : 2 / 4;
     return Center(
       child: Text(
         "$leftEmojis $title $rightEmojis",
-        style: TextStyle(fontSize: height * 3 / 4),
+        style: TextStyle(fontSize: height * scalar),
       ),
     );
   }

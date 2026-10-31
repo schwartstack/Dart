@@ -7,6 +7,10 @@
 
 # Change Log
 
+## Version 3.5.1 (2026-10-31)
+
+- Fix header too big when title has holiday emoji
+
 ## Version 3.5.0 (2026-09-24)
 
 - Clean up word lists
