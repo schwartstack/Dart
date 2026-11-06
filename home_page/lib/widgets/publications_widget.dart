@@ -15,7 +15,7 @@ class PublicationsWidget extends StatelessWidget {
           style: titleStyle,
         ),
         SelectableText(
-          "Kopito, G., Schwartz, J., Amblard, J., Filman, R., & Rabern, L.\nGECCO '23 Companion: Proceedings of the Companion Conference on Genetic and Evolutionary Computation, 2023, (1721 – 1726)",
+          "Kopito G, Schwartz J, Amblard J, Filman R, & Rabern L\nGECCO '23 Companion: Proceedings of the Companion Conference on Genetic and Evolutionary Computation, 2023, (1721-1726)",
         ),
         HyperLink(
           linkStyle: linkStyle,
@@ -28,12 +28,25 @@ class PublicationsWidget extends StatelessWidget {
           style: titleStyle,
         ),
         SelectableText(
-          "Ragni, V. M., Callis, J., Daoud, N., Hu, B., Manuel, M., Santos, J., Schwartz, J., Friedman, K. D., Kouides, P., Kuriakose, P., Leavitt, A. D., Lim, M. Y., Machin, N., Recht, M., Chrisentery-Singleton, T.\nThe Official Journal of the World Federation of Hemophilia, 2023, (30(1), 87-97)",
+          "Ragni VM, Callis J, Daoud N, Hu B, Manuel M, Santos J, Schwartz J, Friedman KD, Kouides P, Kuriakose P, Leavitt AD, Lim MY, Machin N, Recht M, & Chrisentery-Singleton T\nThe Official Journal of the World Federation of Hemophilia, 2023, (30(1), 87-97)",
         ),
         HyperLink(
           linkStyle: linkStyle,
           text:
               "[https://onlinelibrary.wiley.com/doi/10.1111/hae.14910](https://onlinelibrary.wiley.com/doi/10.1111/hae.14910)",
+        ),
+        SizedBox(height: 20),
+        SelectableText(
+          "Hereditary Antithrombin Deficiency Pilot Project Registry from the American Thrombosis and Hemostasis Network",
+          style: titleStyle,
+        ),
+        SelectableText(
+          "DeSancho MT, Suvar E, Roberts JC, Tarantino MD, Schwartz J, Callis J, & Recht MJ\nJournal of Thrombosis and Haemostasis, 2024, (22(11), 3183-3190)",
+        ),
+        HyperLink(
+          linkStyle: linkStyle,
+          text:
+              "[https://pubmed.ncbi.nlm.nih.gov/39151704/](https://pubmed.ncbi.nlm.nih.gov/39151704/)",
         ),
       ],
     );
